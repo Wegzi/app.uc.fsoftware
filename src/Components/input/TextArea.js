@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import Color from 'color';
-import { Label } from './Typography';
+import { Label } from '../Typography';
 
-const StyledTextInput = styled.input.attrs(props => {
+const StyledTextArea = styled.textarea.attrs(props => {
   return { ...props, input: props.theme.input };
 })`
   ${'' /* cursor: pointer; */}
@@ -45,11 +45,11 @@ const StyledTextInput = styled.input.attrs(props => {
   }
 `;
 
-export function TextInput({ label, children, ...props }) {
+export function TextArea({ label, children, ...props }) {
   return (
     <div>
       {label ? <Label className='ml-2' text={label} /> : null}
-      <StyledTextInput {...props}>{children}</StyledTextInput>
+      <StyledTextArea {...props}>{children}</StyledTextArea>
     </div>
   );
 }

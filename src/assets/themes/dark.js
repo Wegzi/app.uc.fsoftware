@@ -19,6 +19,10 @@ const dark = {
       background: '#6a2c70',
       color: '#FFFFFF',
     },
+    input: {
+      background: '#323F4B',
+      color: '#E0E0E0',
+    },
   },
   input: {
     background: '#323F4B',
@@ -31,7 +35,9 @@ const dark = {
   //html
   background: '#1D2025',
   fontcolor: '#E0E0E0',
-
+  text: {
+    dark: '#E0E0E0',
+  },
   collapseMenu: {
     background: '#3E4C59',
     color: '#E0E0E0',

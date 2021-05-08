@@ -1,11 +1,13 @@
 import Color from 'color';
 import React, { useContext, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import Menu from '../../assets/outline/Menu';
 import XIcon from '../../assets/outline/X';
 import { ThemeContext } from '../../context/ThemeState';
 import { Button } from '../Button';
 import Collapse from '../Collapse';
+import { TextInput } from '../TextInput';
 
 const MenuContainer = styled.div`
   max-height: 50vh;
@@ -13,15 +15,14 @@ const MenuContainer = styled.div`
   width: 100vw;
   margin-bottom: 3px;
 `;
-const MenuItem = styled.li`
+const MenuItem = styled.div`
   background-color: ${({ theme }) => theme.ultralight};
   line-height: 1.2;
   margin-bottom: 8px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  &:last-child {
-    margin-bottom: 0;
-  }
+  color: ${props => props.theme.text.dark};
+  font-style: normal;
   &:hover {
     background-color: ${({ theme }) =>
       Color(theme.ultralight).darken(0.05).hex()};
@@ -31,12 +32,11 @@ const MenuItem = styled.li`
 
 const HeaderContainer = styled.div`
   width: 100%;
-  ${'' /* position: fixed; */}
-  font-family: 'Prata', serif;
+  position: relative;
   top: 0;
-  height: ${(props) => props.theme.headerHeight};
-  background-color: ${(props) => props.theme.header.background};
-  color: ${(props) => props.theme.header.color};
+  height: ${props => props.theme.headerHeight};
+  background-color: ${props => props.theme.header.background};
+  color: ${props => props.theme.header.color};
   ${'' /* color: ${(props) => props.theme.white}; */}
   display: flex;
   align-items: center;
@@ -47,40 +47,61 @@ const HeaderContainer = styled.div`
   font-style: italic;
   justify-content: space-between;
 `;
-const Emogi = styled.span`
-  font-family: 'Cabin', serif;
-`;
 
 export function Header() {
+  const [search, setSearch] = useState('');
   const { switchTheme, isDark } = useContext(ThemeContext);
   const [isOpen, setIsOpen] = useState(false);
+  const history = useHistory();
+  function onSearch() {
+    history.push(`/services?q=${search}`);
+  }
+
+  const options = [
+    { title: 'Home', key: 'home', path: '/home' },
+    { title: 'Services', key: 'services', path: '/services' },
+    { title: 'Help and Support', key: 'help_and_support', path: '/help' },
+    { title: 'About', key: 'about', path: '/about' },
+  ];
   return (
     <>
       <HeaderContainer>
         <MenuToggler isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
-        <div>
-          Zigzera <Emogi>¯\_(ツ)_/¯</Emogi>
+        <div className='flex'>
+          <TextInput
+            value={search}
+            onChange={ev => setSearch(ev.target.value)}
+            placeholder='Buscar'
+          />
+          <Button
+            icon='FiSearch'
+            type='input'
+            className='ml-1'
+            onClick={onSearch}
+          />
         </div>
         <Button onClick={() => switchTheme()}>
           {isDark ? 'Light' : 'Dark'}
         </Button>
+        <CollapseMenu isOpen={isOpen} options={options} />
       </HeaderContainer>
-      <CollapseMenu isOpen={isOpen} />
     </>
   );
 }
 
-const CollapseMenu = ({ isOpen }) => (
-  <div className='absolute shadow-xl rounded-b-lg' style={{ zIndex: '900' }}>
+const CollapseMenu = ({ isOpen, options }) => (
+  <div
+    className='absolute shadow-xl rounded-b-lg'
+    style={{ zIndex: '900', left: 0, bottom: 0, transform: 'translateY(100%)' }}
+  >
     <Collapse isOpen={isOpen}>
       <MenuContainer className='rounded-b-lg p-2 pb-8'>
         <ul>
-          <MenuItem className='p-3 rounded'>Home</MenuItem>
-          <MenuItem className='p-3 rounded'>Friends</MenuItem>
-          <MenuItem className='p-3 rounded'>Tasks</MenuItem>
-          <MenuItem className='p-3 rounded'>Privacy & Security</MenuItem>
-          <MenuItem className='p-3 rounded'>Help and Suppoert</MenuItem>
-          <MenuItem className='p-3 rounded'>About</MenuItem>
+          {options.map(option => (
+            <Link key={option.key} to={option.path} className='mb-2'>
+              <MenuItem className='p-3 rounded'>{option.title}</MenuItem>
+            </Link>
+          ))}
         </ul>
       </MenuContainer>
     </Collapse>

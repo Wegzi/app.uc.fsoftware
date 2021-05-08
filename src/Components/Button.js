@@ -1,25 +1,28 @@
+import React from 'react';
 import styled from 'styled-components';
 import Color from 'color';
+import { FiCheck, FiPlus, FiSearch, FiX } from 'react-icons/fi';
 
-const types = ['primary'];
+const types = { primary: 'primary', input: 'input' };
 
-export const Button = styled.button.attrs((props) => {
-  const type = types[props.type] || types[0];
-  const button = props.theme.button[type] || props.theme.button[types[0]];
+const StyledButton = styled.button.attrs(props => {
+  const type = types[props.type] || 'primary';
+  const button = props.theme.button[type] || props.theme.button[type];
   return { ...props, button };
 })`
   cursor: pointer;
-  display: inline-block;
+  display: flex;
+  align-items: center;
   min-height: 1em;
   outline: 0;
   border: none;
   vertical-align: baseline;
   background: ${({ button }) => button.background};
   color: ${({ button }) => button.color};
-  ${'' /* margin: 0; */}
-  padding: 0.5em 1.5em 0.5em;
+  padding: 0.5em 1em 0.5em;
   font-family: 'Alata', sans-serif;
-  font-size: 1em;
+  /* font-size: 1em; */
+  font-size: 0.875rem;
   font-style: normal;
   font-weight: 700;
   line-height: 1.4em;
@@ -27,7 +30,7 @@ export const Button = styled.button.attrs((props) => {
   text-decoration: none;
   text-shadow: none;
   text-transform: none;
-  border-radius: ${(props) => props.theme.rounded};
+  border-radius: ${props => props.theme.rounded};
   box-shadow: 0 0 0 1px transparent, 0 0 0 0 rgba(34, 36, 38, 0.15);
   user-select: none;
   transition: opacity 0.2s ease, background-color 0.2s ease, color 0.2s ease,
@@ -45,3 +48,21 @@ export const Button = styled.button.attrs((props) => {
     outline: none;
   }
 `;
+
+export function Button({ icon: propIcon, text, children, ...props }) {
+  const Icon = icons[propIcon];
+  return (
+    <StyledButton {...props}>
+      {children}
+      {text ? text : null}
+      {Icon ? <Icon className={text ? 'ml-2' : ''} size='18' /> : null}
+    </StyledButton>
+  );
+}
+
+const icons = {
+  FiSearch: FiSearch,
+  FiPlus: FiPlus,
+  FiX: FiX,
+  FiCheck: FiCheck,
+};

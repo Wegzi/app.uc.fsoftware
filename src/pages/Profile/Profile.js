@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import ProgressBar from '../../Components/ProgressBar';
-import { Icon, Label } from '../../Components/Typograph';
+import { Icon, Label } from '../../Components/Typography';
 import theduck from '../../assets/images/theduck.png';
 import Color from 'color';
 import ChevronRight from '../../assets/solid/ChevronRight';

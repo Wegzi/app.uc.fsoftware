@@ -17,9 +17,13 @@ const light = {
       background: '#6a2c70',
       color: '#FFFFFF',
     },
+    input: {
+      background: '#EEEEEE',
+      color: '#555555',
+    },
   },
   input: {
-    background: '#EEEEEE',
+    background: '#E6E6E6',
     color: '#555555',
   },
   chatMessage: {
@@ -29,7 +33,9 @@ const light = {
   //html
   // background: '#9AA5B1',
   fontcolor: '#555555',
-
+  text: {
+    dark: '#555555',
+  },
   collapseMenu: {
     background: '#CBD2D9',
     color: '#555555',
