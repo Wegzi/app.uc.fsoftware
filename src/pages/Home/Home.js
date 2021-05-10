@@ -23,9 +23,9 @@ function Card() {
       <CardImage className='p-3 rounded-full mx-auto'></CardImage>
       <div>
         <p className='overflow-ellipsis overflow-hidden mt-3'>
-          Mussum Ipsum, cacilds vidis litro abertis. Copo furadis é disculpa de
-          bebadis, arcu quam euismod magna. Sapien in monti palavris qui num
-          significa nadis i pareci latim. In elementis mé pra quem é amistosis
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras
+          placerat, massa condimentum lacinia fringilla, ex mauris lacinia
+          tellus
         </p>
       </div>
     </CardService>

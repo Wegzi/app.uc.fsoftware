@@ -8,7 +8,7 @@ export function Footer() {
         <LogoContainer className='p-3 mr-10 rounded'>
           <img src={logo} alt='' />
         </LogoContainer>
-        <div>sei lá</div>
+        <div>footer</div>
       </div>
     </FooterContainer>
   );
