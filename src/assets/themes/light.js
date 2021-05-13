@@ -21,6 +21,14 @@ const light = {
       background: '#EEEEEE',
       color: '#555555',
     },
+    light: {
+      background: '#EEEEEE',
+      color: '#555555',
+    },
+    success: {
+      background: '#79740E',
+      color: '#EEEEEE',
+    },
   },
   input: {
     background: '#E6E6E6',
@@ -38,6 +46,10 @@ const light = {
   },
   collapseMenu: {
     background: '#CBD2D9',
+    color: '#555555',
+  },
+  card: {
+    background: '#FFFFFF',
     color: '#555555',
   },
 };
@@ -77,4 +89,5 @@ export default light;
  * #FFA000 AMBER
  * #FF2768 RED
  * #673AB7 DEEP PURPLE
+ * #79740E GREEN
  */

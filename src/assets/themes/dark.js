@@ -17,11 +17,19 @@ const dark = {
   button: {
     primary: {
       background: '#6a2c70',
-      color: '#FFFFFF',
+      color: '#E0E0E0',
     },
     input: {
       background: '#323F4B',
       color: '#E0E0E0',
+    },
+    light: {
+      background: '#424242',
+      color: '#E0E0E0',
+    },
+    success: {
+      background: '#79740E',
+      color: '#EEEEEE',
     },
   },
   input: {
@@ -40,6 +48,10 @@ const dark = {
   },
   collapseMenu: {
     background: '#3E4C59',
+    color: '#E0E0E0',
+  },
+  card: {
+    background: '#1F2933',
     color: '#E0E0E0',
   },
 };
@@ -80,5 +92,6 @@ export default dark;
  * #4A1A3D DARK
  * #FFA000 AMBER
  * #FF2768 RED
+ * #B8BB26 GREEN
  * #673AB7 DEEP PURPLE
  */

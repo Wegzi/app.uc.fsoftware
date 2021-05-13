@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import ProgressBar from '../../Components/ProgressBar';
-import { Icon, Label } from '../../Components/Typography';
-import theduck from '../../assets/images/theduck.png';
-import Color from 'color';
-import ChevronRight from '../../assets/solid/ChevronRight';
+import { Label } from '../../Components/Typography';
+import the_duck from '../../assets/images/theduck.png';
+import { TabContainer, TabContent, Tabs } from '../../Components/Tabs';
+import Settings from './Settings';
+import Services from './Services';
+const Components = { settings: Settings, services: Services };
 
 export default function Profile() {
+  const [currentTab, setCurrentTab] = useState('services');
+  const TabComponent = Components[currentTab];
   return (
     <>
       <div>
@@ -14,7 +18,7 @@ export default function Profile() {
           <UserInfo>
             <div>
               <AvatarBubble className='mx-3 shadow-xl'>
-                <img src={theduck} alt='avatar' />
+                <img src={the_duck} alt='avatar' />
               </AvatarBubble>
             </div>
             <div className='w-full pr-2'>
@@ -28,63 +32,32 @@ export default function Profile() {
           </UserInfo>
         </MainContainer>
       </div>
-      <div className='pt-12 px-2'>
-        <div className='grid gap-4 grid-cols-3'>
+      <div className='pt-12 '>
+        <div className='grid gap-4 grid-cols-3 px-2'>
           <MetricCard value={'12k'} label='Something' />
           <MetricCard value={'12k'} label='Something' />
           <MetricCard value={'12k'} label='Something' />
         </div>
-        <div className='mt-4'>
-          <div className='w-full m-2 text-center'>
-            <Label text='Settings' size='1.2' semiBold />
-          </div>
-          <ul className='shadow rounded'>
-            <SettingsItem
-              className='p-3 rounded'
-              icon='user-circle'
-              label='Account'
-            />
-            <SettingsItem
-              className='p-3 rounded'
-              icon='bell'
-              label='Notifications'
-            />
-            <SettingsItem
-              className='p-3 rounded'
-              icon='eye'
-              label='Apparence'
-            />
-            <SettingsItem
-              className='p-3 rounded'
-              icon='lock-closed'
-              label='Privacy & Security'
-            />
-            <SettingsItem
-              className='p-3 rounded'
-              icon='light-bulb'
-              label='Help and Support'
-            />
-            <SettingsItem
-              className='p-3 rounded'
-              icon='information-circle'
-              label='About'
-            />
-          </ul>
-        </div>
+        <TabContainer className='mt-3'>
+          <Tabs
+            onClick={() => setCurrentTab('services')}
+            title='Serviços'
+            active={currentTab === 'services'}
+          />
+          <Tabs
+            onClick={() => setCurrentTab('settings')}
+            title='Configurações'
+            active={currentTab === 'settings'}
+          />
+        </TabContainer>
+        <TabContent className='rounded-b-xl px-3 py-4'>
+          <TabComponent />
+        </TabContent>
       </div>
     </>
   );
 }
 
-const SettingsItem = ({ icon, label }) => (
-  <ListItem className='p-3 flex justify-between'>
-    <div className='d-flex'>
-      <Icon icon={icon} className='inline mr-2' style={{ width: '19px' }} />
-      <Label text={label} semiBold />
-    </div>
-    <ChevronRight style={{ width: '19px' }} />
-  </ListItem>
-);
 const MetricCard = ({ value, label }) => (
   <StyledMetricCard className='rounded shadow p-2'>
     <Label text={value} size='1.2' semiBold />
@@ -92,26 +65,6 @@ const MetricCard = ({ value, label }) => (
   </StyledMetricCard>
 );
 
-const ListItem = styled.div`
-  background-color: ${({ theme }) => theme.white};
-  line-height: 1.2;
-  font-weight: 600;
-  cursor: pointer;
-  border-top: solid 1px ${({ theme }) => theme.light};
-  &:first-child {
-    border-top: none;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-  }
-
-  &:last-child {
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-  }
-  &:hover {
-    background-color: ${({ theme }) => Color(theme.white).darken(0.05).hex()};
-  }
-`;
 const StyledMetricCard = styled.div`
   text-align: center;
   background-color: ${({ theme }) => theme.white};

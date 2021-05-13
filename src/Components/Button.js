@@ -1,13 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 import Color from 'color';
-import { FiCheck, FiPlus, FiSearch, FiX } from 'react-icons/fi';
+import { FiCheck, FiPlus, FiSearch, FiUser, FiX } from 'react-icons/fi';
 
-const types = { primary: 'primary', input: 'input' };
+const types = {
+  primary: 'primary',
+  input: 'input',
+  light: 'light',
+  success: 'success',
+};
 
 const StyledButton = styled.button.attrs(props => {
   const type = types[props.type] || 'primary';
-  const button = props.theme.button[type] || props.theme.button[type];
+  const button = props.theme.button[type];
   return { ...props, button };
 })`
   cursor: pointer;
@@ -23,6 +28,7 @@ const StyledButton = styled.button.attrs(props => {
   font-family: 'Alata', sans-serif;
   /* font-size: 1em; */
   font-size: 0.875rem;
+  justify-content: center;
   font-style: normal;
   font-weight: 700;
   line-height: 1.4em;
@@ -60,9 +66,28 @@ export function Button({ icon: propIcon, text, children, ...props }) {
   );
 }
 
+const StyledGroupButton = styled.div`
+  display: inline-flex;
+  button {
+    border-radius: 0;
+    &:first-child {
+      border-top-left-radius: ${props => props.theme.rounded};
+      border-bottom-left-radius: ${props => props.theme.rounded};
+    }
+    &:last-child {
+      border-top-right-radius: ${props => props.theme.rounded};
+      border-bottom-right-radius: ${props => props.theme.rounded};
+    }
+  }
+`;
+export function GroupButton({ children, ...props }) {
+  return <StyledGroupButton {...props}>{children}</StyledGroupButton>;
+}
+
 const icons = {
   FiSearch: FiSearch,
   FiPlus: FiPlus,
   FiX: FiX,
   FiCheck: FiCheck,
+  FiUser: FiUser,
 };

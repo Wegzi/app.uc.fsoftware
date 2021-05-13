@@ -13,13 +13,23 @@ export default function Search({ location }) {
     {
       _id: '1',
       title: 'Serviço 1',
-      description: 'sqweqweqw',
+      user_name: 'Usuário 1',
+      stars: 4,
+      price: 100.0,
+      description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras
+      placerat, massa condimentum lacinia fringilla, ex mauris lacinia
+      tellus`,
       created_at: new Date(),
     },
     {
       _id: '12',
       title: 'Serviço 2',
-      description: 'sqweqweqw',
+      user_name: 'Usuário 2',
+      stars: 2,
+      price: 100.0,
+      description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras
+      placerat, massa condimentum lacinia fringilla, ex mauris lacinia
+      tellus`,
       created_at: new Date(),
     },
   ];
@@ -28,16 +38,23 @@ export default function Search({ location }) {
       {query ? <Label text={`Buscando por: ${query}`} /> : null}
       <div>
         {services.map(service => (
-          <Link to={`/services/${service._id}`} key={service._id}>
+          <Link to={`/purchase/${service._id}`} key={service._id}>
             <ServiceContainer className='rounded shadow mb-3 px-3 pt-3'>
-              <div>
+              <div className='flex ml-auto justify-between'>
                 <Label text={service.title} bold />
+                <Stars value={service.stars} />
               </div>
               <div>
                 <p>{service.description}</p>
               </div>
-              <div className='mt-3 flex justify-end italic'>
-                {service.created_at.toLocaleString()}
+              <div className='mt-3 flex justify-between italic'>
+                <div>
+                  <Label text={`${service.price} R$`} bold />
+                </div>
+                <div className='flex'>
+                  <Label className='mr-4' text={service.user_name} bold />
+                  {service.created_at.toLocaleString()}
+                </div>
               </div>
             </ServiceContainer>
           </Link>
@@ -60,3 +77,18 @@ export default function Search({ location }) {
 const ServiceContainer = styled.div`
   background-color: ${({ theme }) => theme.white};
 `;
+
+function Stars({ value }) {
+  const stars = new Array(5).fill(0).map((_, i) => i + 1 <= value);
+  return (
+    <div className='flex'>
+      {stars.map(star => (
+        <Icon
+          size='20'
+          className='mr-2'
+          icon={star ? 'AiFillStar' : 'AiOutlineStar'}
+        />
+      ))}
+    </div>
+  );
+}

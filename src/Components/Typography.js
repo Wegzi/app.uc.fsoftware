@@ -1,8 +1,18 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import * as Outline from '../assets/outline';
-import { FiCheck, FiPlus, FiSearch, FiX, FiZap } from 'react-icons/fi';
-
+import {
+  FiArrowRight,
+  FiCheck,
+  FiCreditCard,
+  FiPlus,
+  FiSearch,
+  FiUser,
+  FiUserPlus,
+  FiX,
+  FiZap,
+} from 'react-icons/fi';
+import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 const StyledLabel = styled.label`
   display: block;
   font-size: ${({ size }) => size || 1}em;
@@ -16,6 +26,13 @@ const icons = {
   FiX: FiX,
   FiCheck: FiCheck,
   FiZap: FiZap,
+  FiUser: FiUser,
+  FiCreditCard: FiCreditCard,
+  FiArrowRight: FiArrowRight,
+  FiUserPlus: FiUserPlus,
+  //
+  AiFillStar: AiFillStar,
+  AiOutlineStar: AiOutlineStar,
 };
 export function Icon({ icon, className, style, size }) {
   function renderIcon(_icon) {
@@ -33,7 +50,9 @@ export function Icon({ icon, className, style, size }) {
     else return null;
   }
   const IconComponent = useMemo(() => renderIcon(icon), [icon]);
-  return <IconComponent className={className} style={style} size={size} />;
+  return (
+    <IconComponent className={className} style={style} size={size || 20} />
+  );
 }
 export function Label({ text, className, size, bold, semiBold, muted }) {
   return (

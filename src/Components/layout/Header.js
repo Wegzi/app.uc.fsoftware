@@ -1,13 +1,13 @@
 import Color from 'color';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import Menu from '../../assets/outline/Menu';
 import XIcon from '../../assets/outline/X';
-import { ThemeContext } from '../../context/ThemeState';
 import { Button } from '../Button';
 import Collapse from '../Collapse';
 import { TextInput } from '../TextInput';
+import ProfileMenu from './ProfileMenu';
 
 const MenuContainer = styled.div`
   max-height: 50vh;
@@ -50,7 +50,6 @@ const HeaderContainer = styled.div`
 
 export function Header() {
   const [search, setSearch] = useState('');
-  const { switchTheme, isDark } = useContext(ThemeContext);
   const [isOpen, setIsOpen] = useState(false);
   const history = useHistory();
   function onSearch() {
@@ -80,9 +79,7 @@ export function Header() {
             onClick={onSearch}
           />
         </div>
-        <Button onClick={() => switchTheme()}>
-          {isDark ? 'Light' : 'Dark'}
-        </Button>
+        <ProfileMenu />
         <CollapseMenu isOpen={isOpen} options={options} />
       </HeaderContainer>
     </>
