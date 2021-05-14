@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import logo from '../../assets/images/footer-logo.png';
 export function Footer() {
   return (
-    <FooterContainer style={{ height: '190px' }}>
+    <FooterContainer style={{ height: '120px' }}>
       <div className='flex h-full px-5 py-3'>
         <LogoContainer className='p-3 mr-10 rounded'>
           <img src={logo} alt='' />
@@ -19,7 +19,7 @@ const FooterContainer = styled.div`
 `;
 const LogoContainer = styled.div`
   background-color: ${({ theme }) => theme.primary}75;
-  width: 100px;
-  height: 100px;
+  width: 65px;
+  height: 65px;
   align-self: center;
 `;

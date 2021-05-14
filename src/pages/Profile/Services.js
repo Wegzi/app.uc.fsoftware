@@ -1,5 +1,6 @@
 import Color from 'color';
 import React from 'react';
+import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import { ChevronRight } from '../../assets/outline';
 import { Label } from '../../Components/Typography';
@@ -30,26 +31,33 @@ const SERVICES = [
 ];
 
 export default function Services() {
+  const history = useHistory();
   return (
     <div>
-      <Label text='Serviços cadastrados' bold />
+      <Label text='Seus serviços' bold />
       <div>
         {SERVICES.map(service => (
-          <SettingsItem label={service.title} />
+          <SettingsItem
+            label={service.title}
+            onClick={() => history.push(`/services/${service._id}/track`)}
+          />
         ))}
       </div>
       <div className='my-5 border' />
       <Label text='Serviços contatados' bold />
       <div>
         {[...SERVICES, ...SERVICES].map(service => (
-          <SettingsItem label={service.title} />
+          <SettingsItem
+            label={service.title}
+            onClick={() => history.push(`/services/${service._id}/track`)}
+          />
         ))}
       </div>
     </div>
   );
 }
-const SettingsItem = ({ label }) => (
-  <ListItem className='p-3 flex justify-between'>
+const SettingsItem = ({ label, onClick }) => (
+  <ListItem className='p-3 flex justify-between' onClick={onClick}>
     <div className='flex'>
       <Label text={label} semiBold />
     </div>

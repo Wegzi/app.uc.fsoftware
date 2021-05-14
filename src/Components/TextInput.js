@@ -47,9 +47,9 @@ const StyledTextInput = styled.input.attrs(props => {
 
 export function TextInput({ label, children, inputType, ...props }) {
   return (
-    <div>
+    <>
       {label ? <Label className='ml-2' text={label} /> : null}
       <StyledTextInput {...props}>{children}</StyledTextInput>
-    </div>
+    </>
   );
 }

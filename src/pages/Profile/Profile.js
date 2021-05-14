@@ -32,7 +32,7 @@ export default function Profile() {
           </UserInfo>
         </MainContainer>
       </div>
-      <div className='pt-12 '>
+      <div className='pt-12 pb-3'>
         <div className='grid gap-4 grid-cols-3 px-2'>
           <MetricCard value={'12k'} label='Something' />
           <MetricCard value={'12k'} label='Something' />

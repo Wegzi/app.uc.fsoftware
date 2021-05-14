@@ -45,6 +45,7 @@ const dark = {
   fontcolor: '#E0E0E0',
   text: {
     dark: '#E0E0E0',
+    light: '#555555',
   },
   collapseMenu: {
     background: '#3E4C59',

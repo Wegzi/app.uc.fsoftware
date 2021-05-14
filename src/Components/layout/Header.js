@@ -66,7 +66,7 @@ export function Header() {
     <>
       <HeaderContainer>
         <MenuToggler isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
-        <div className='flex'>
+        <div className='flex px-4'>
           <TextInput
             value={search}
             onChange={ev => setSearch(ev.target.value)}

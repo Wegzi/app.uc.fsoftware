@@ -1,7 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import Color from 'color';
-import { FiCheck, FiPlus, FiSearch, FiUser, FiX } from 'react-icons/fi';
+import {
+  FiCheck,
+  FiPlus,
+  FiSearch,
+  FiSend,
+  FiStar,
+  FiUser,
+  FiX,
+} from 'react-icons/fi';
 
 const types = {
   primary: 'primary',
@@ -90,4 +98,6 @@ const icons = {
   FiX: FiX,
   FiCheck: FiCheck,
   FiUser: FiUser,
+  FiSend: FiSend,
+  FiStar: FiStar,
 };

@@ -43,6 +43,7 @@ const light = {
   fontcolor: '#555555',
   text: {
     dark: '#555555',
+    light: '#E0E0E0',
   },
   collapseMenu: {
     background: '#CBD2D9',

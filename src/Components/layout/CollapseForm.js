@@ -3,6 +3,19 @@ import styled from 'styled-components';
 import Collapse from '../Collapse';
 import { Button } from '../Button';
 
+export function OverflowCollapse({ isOpen, children }) {
+  return (
+    <>
+      <Container isOpen={isOpen}>
+        <Collapse isOpen={isOpen}>
+          <div className='p-3 pb-5 rounded-t-xl' style={{ height: '100vh' }}>
+            {children}
+          </div>
+        </Collapse>
+      </Container>
+    </>
+  );
+}
 export default function CollapseForm({ children }) {
   const [isOpen, setIsOpen] = useState(false);
 
