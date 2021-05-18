@@ -4,8 +4,10 @@ import * as Outline from '../assets/outline';
 import {
   FiArrowRight,
   FiCheck,
+  FiChevronDown,
   FiCreditCard,
   FiPlus,
+  FiPower,
   FiSearch,
   FiUser,
   FiUserPlus,
@@ -30,6 +32,8 @@ const icons = {
   FiCreditCard: FiCreditCard,
   FiArrowRight: FiArrowRight,
   FiUserPlus: FiUserPlus,
+  FiPower: FiPower,
+  FiChevronDown: FiChevronDown,
   //
   AiFillStar: AiFillStar,
   AiOutlineStar: AiOutlineStar,

@@ -1,6 +1,7 @@
-import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import { AppContext } from '../../context/AppState';
 import { ThemeContext } from '../../context/ThemeState';
 import { Button } from '../Button';
 import Collapse from '../Collapse';
@@ -9,10 +10,39 @@ import { MenuItem } from './styles';
 
 export default function ProfileMenu() {
   const [isOpen, setIsOpen] = useState(false);
-  const options = [
-    { title: 'Sign-in', key: 'login', path: '/login', icon: 'FiArrowRight' },
-    { title: 'Cadastar', key: 'signup', path: '/signup', icon: 'FiUserPlus' },
-  ];
+  const [options, setOptions] = useState([]);
+  const { user, setUser } = useContext(AppContext);
+  const history = useHistory();
+  useEffect(() => {
+    const not_logged_options = [
+      { title: 'Sign-in', key: 'login', path: '/login', icon: 'FiArrowRight' },
+      { title: 'Cadastar', key: 'signup', path: '/signup', icon: 'FiPower' },
+    ];
+    const logged = [
+      {
+        title: 'Profile',
+        key: 'profile',
+        path: '/profile',
+        icon: 'FiUser',
+      },
+      {
+        title: 'Logout',
+        key: 'logout',
+        action: () => {
+          setUser();
+          localStorage.removeItem('user');
+          history.push('/home');
+        },
+        icon: 'FiPower',
+      },
+    ];
+    if (user) {
+      setOptions(logged);
+    } else {
+      setOptions(not_logged_options);
+    }
+  }, [history, setUser, user]);
+
   return (
     <div>
       <Button icon='FiUser' onClick={() => setIsOpen(!isOpen)} />
@@ -37,14 +67,28 @@ const CollapseMenu = ({ isOpen, options }) => {
       <Collapse isOpen={isOpen}>
         <MenuContainer className='rounded-bl-lg p-2'>
           <ul>
-            {options.map(option => (
-              <Link key={option.key} to={option.path} className='mb-2'>
-                <MenuItem className='p-3 rounded flex items-center'>
-                  <Icon icon={option.icon} className='mr-2' />
-                  {option.title}
-                </MenuItem>
-              </Link>
-            ))}
+            {options.map(option =>
+              option.action ? (
+                <div key={option.key} onClick={option.action} className='mb-2'>
+                  <MenuItem className='p-3 rounded flex items-center'>
+                    <Icon icon={option.icon} className='mr-2' />
+                    {option.title}
+                  </MenuItem>
+                </div>
+              ) : (
+                <Link
+                  key={option.key}
+                  to={option.path}
+                  onClick={option.action}
+                  className='mb-2'
+                >
+                  <MenuItem className='p-3 rounded flex items-center'>
+                    <Icon icon={option.icon} className='mr-2' />
+                    {option.title}
+                  </MenuItem>
+                </Link>
+              )
+            )}
           </ul>
           <Button
             className='ml-auto'
@@ -60,6 +104,6 @@ const CollapseMenu = ({ isOpen, options }) => {
 const MenuContainer = styled.div`
   max-height: 50vh;
   background-color: ${({ theme }) => theme.collapseMenu.background};
-  width: 90vw;
+  min-width: 30vw;
   margin-bottom: 3px;
 `;

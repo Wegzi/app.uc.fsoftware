@@ -1,57 +1,77 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 import styled from 'styled-components';
 import { Button } from '../../Components/Button';
-import CollapseForm, {
-  OverflowCollapse,
-} from '../../Components/layout/CollapseForm';
+import { OverflowCollapse } from '../../Components/layout/CollapseForm';
 import { TextInput } from '../../Components/TextInput';
 import { Label } from '../../Components/Typography';
-
-const SERVICE = {
-  _id: '1',
-  title: 'Serviço 1',
-  user_name: 'Usuário 1',
-  stars: 4,
-  price: 100.0,
-  tags: ['desenvolvimento'],
-  description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras
-  placerat, massa condimentum lacinia fringilla, ex mauris lacinia
-  tellus`,
-  created_at: new Date(),
-};
+import ServiceService from '../../services/ServiceService';
+import ServiceForm from './ServiceForm';
 
 export default function Service() {
+  const [service, setService] = useState({});
   const [isOpen, setIsOpen] = useState(false);
   const history = useHistory();
   const params = useParams();
+
+  useEffect(() => {
+    findService(params.service_id);
+  }, [params.service_id]);
+  async function findService(serviceId) {
+    try {
+      const service = new ServiceService();
+      const { data } = await service.findService(serviceId);
+      setService(data);
+    } catch (error) {}
+  }
+
+  function onSave(newService) {
+    setService({ ...newService });
+  }
+  async function onDelete(serviceId) {
+    try {
+      const service = new ServiceService();
+      await service.deleteService(serviceId);
+      history.goBack();
+    } catch (error) {}
+  }
   return (
     <div className='container p-3 mx-auto'>
       <div className='flex items-center justify-between'>
-        <Label text={SERVICE.title} semiBold size='1.2' />
-        <Button
-          text='Contratar'
-          icon='FiCheck'
-          onClick={() => history.push(`${params.service_id}/purchase`)}
-        />
+        <Label text={service.title} semiBold size='1.2' />
+        <div className='flex'>
+          <Button
+            className='mr-3'
+            text='Contratar'
+            icon='FiCheck'
+            onClick={() => history.push(`${params.service_id}/purchase`)}
+          />
+          <Button
+            text='Deletar'
+            icon='FiTrash2'
+            onClick={() => onDelete(service._id)}
+            type='danger'
+          />
+        </div>
       </div>
       <div className='flex'>
         <Label text='Tags: ' className='mr-2' />
-        {SERVICE.tags.map(tag => (
-          <Label className='mr-2' text={tag} />
+        {service.tags?.map((tag, i) => (
+          <Label className='mr-2' key={i} text={tag} />
         ))}
       </div>
-      <p className='my-2'>{SERVICE.description}</p>
-      <Label text={`${SERVICE.price} R$`} />
+      <p className='my-2'>{service.description}</p>
+      <Label text={`${service.value ?? '-'} R$`} />
       <div className='mt-3'>
         <div className='flex items-center '>
           <Button
             text='Duvidas comunidade'
             className='mr-3'
-            // type='light'
             onClick={() => setIsOpen(!isOpen)}
           />
         </div>
+        <ServiceForm onSave={onSave} service={service} />
+
         <OverflowCollapse isOpen={isOpen}>
           <div className='flex flex-col h-full'>
             <Button
@@ -62,7 +82,7 @@ export default function Service() {
             />
             <ChatContainer className='shadow rounded'>
               <ChatCard className='p-2'>
-                {new Array(20).fill().map((_, i) => (
+                {new Array(20).fill(0).map((_, i) => (
                   <Chat key={i} answerer={i % 2} />
                 ))}
               </ChatCard>

@@ -1,12 +1,15 @@
 import React from 'react';
+import { AppProvider } from './context/AppState';
 import { ThemeProvider } from './context/ThemeState';
 import Routes from './Routes';
 
 function App() {
   return (
-    <ThemeProvider>
-      <Routes />
-    </ThemeProvider>
+    <AppProvider>
+      <ThemeProvider>
+        <Routes />
+      </ThemeProvider>
+    </AppProvider>
   );
 }
 

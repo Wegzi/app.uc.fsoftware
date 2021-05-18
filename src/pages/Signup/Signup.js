@@ -1,23 +1,85 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import { Button } from '../../Components/Button';
 import { TextInput } from '../../Components/TextInput';
 import { Label } from '../../Components/Typography';
+import { AppContext } from '../../context/AppState';
+import UserService from '../../services/UserService';
 
 export default function Signup() {
+  const [user, setUser] = useState({
+    name: '',
+    email: '',
+    password: '',
+    cpf: '',
+    birth_data: '',
+    phone: '',
+  });
   const history = useHistory();
-  function handleLogin() {
-    history.push('/profile');
+  const appCtx = useContext(AppContext);
+  async function handleLogin() {
+    try {
+      const userService = new UserService();
+      const { data } = await userService.signup(user);
+      appCtx.setUser(data);
+      localStorage.setItem('user', JSON.stringify(data));
+      history.push('/profile');
+    } catch (error) {
+      console.log(error);
+      console.error(error?.response?.data?.errors);
+      console.error(error?.response?.data?.message);
+    }
+  }
+  async function handleChange({ target: { value, name } }) {
+    setUser(stUser => ({ ...stUser, [name]: value }));
   }
   return (
     <div className='container mx-auto p-3'>
       <Label text='Cadastrar' size='1.2' className='text-center' semiBold />
       <Card className='p-4 mt-2 rounded shadow'>
-        <TextInput label='Email' className='mb-2' type='email' />
-        <TextInput label='Senha' className='mb-4' type='password' />
-        <TextInput label='CPF' className='mb-4' type='password' />
-        <TextInput label='Telefone' className='mb-4' type='password' />
+        <TextInput
+          name='name'
+          label='Nome'
+          className='mb-2'
+          type='text'
+          onChange={handleChange}
+        />{' '}
+        <TextInput
+          name='email'
+          label='Email'
+          className='mb-2'
+          type='email'
+          onChange={handleChange}
+        />
+        <TextInput
+          name='password'
+          label='Senha'
+          className='mb-4'
+          type='password'
+          onChange={handleChange}
+        />
+        <TextInput
+          name='cpf'
+          label='CPF'
+          className='mb-4'
+          type='password'
+          onChange={handleChange}
+        />
+        <TextInput
+          name='birth_data'
+          label='Data de nascimento'
+          className='mb-4'
+          type='password'
+          onChange={handleChange}
+        />
+        <TextInput
+          name='phone'
+          label='Telefone'
+          className='mb-4'
+          type='number'
+          onChange={handleChange}
+        />
         <Button
           text='Cadastrar'
           className='mx-auto w-3/4'

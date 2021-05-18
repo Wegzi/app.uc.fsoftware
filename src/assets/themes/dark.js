@@ -31,6 +31,10 @@ const dark = {
       background: '#79740E',
       color: '#EEEEEE',
     },
+    danger: {
+      background: '#cc241d',
+      color: '#EEEEEE',
+    },
   },
   input: {
     background: '#323F4B',

@@ -29,6 +29,10 @@ const light = {
       background: '#79740E',
       color: '#EEEEEE',
     },
+    danger: {
+      background: '#cc241d',
+      color: '#EEEEEE',
+    },
   },
   input: {
     background: '#E6E6E6',

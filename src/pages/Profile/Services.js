@@ -1,55 +1,65 @@
 import Color from 'color';
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import { ChevronRight } from '../../assets/outline';
 import { Label } from '../../Components/Typography';
-
-const SERVICES = [
-  {
-    _id: '1',
-    title: 'Serviço 1',
-    user_name: 'Usuário 1',
-    stars: 4,
-    price: 100.0,
-    description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras
-      placerat, massa condimentum lacinia fringilla, ex mauris lacinia
-      tellus`,
-    created_at: new Date(),
-  },
-  {
-    _id: '12',
-    title: 'Serviço 2',
-    user_name: 'Usuário 2',
-    stars: 2,
-    price: 100.0,
-    description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras
-      placerat, massa condimentum lacinia fringilla, ex mauris lacinia
-      tellus`,
-    created_at: new Date(),
-  },
-];
+import { AppContext } from '../../context/AppState';
+import UserService from '../../services/UserService';
 
 export default function Services() {
+  const [services, setServices] = useState([]);
+  const [purchases, setPurchases] = useState([]);
   const history = useHistory();
+  const { user } = useContext(AppContext);
+  const userId = user?._id;
+
+  useEffect(() => {
+    if (userId) {
+      fetchSelfServices(userId);
+      fetchPurchases(userId);
+    }
+  }, [userId]);
+  async function fetchSelfServices(userId) {
+    try {
+      const service = new UserService();
+      const { data } = await service.findUserServices(userId);
+      setServices(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  async function fetchPurchases(userId) {
+    try {
+      const service = new UserService();
+      const { data } = await service.findUserPurchases(userId);
+      setPurchases(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
   return (
     <div>
       <Label text='Seus serviços' bold />
-      <div>
-        {SERVICES.map(service => (
+      <div className='shadow rounded'>
+        {services.map((service, i) => (
           <SettingsItem
+            key={i}
             label={service.title}
-            onClick={() => history.push(`/services/${service._id}/track`)}
+            onClick={() => history.push(`/services/${service._id}`)}
           />
         ))}
       </div>
       <div className='my-5 border' />
       <Label text='Serviços contatados' bold />
-      <div>
-        {[...SERVICES, ...SERVICES].map(service => (
+      <div className='shadow rounded'>
+        {purchases.map(({ service, ...purchase }) => (
           <SettingsItem
-            label={service.title}
-            onClick={() => history.push(`/services/${service._id}/track`)}
+            key={purchase._id}
+            label={`${service.title} - ${new Date(
+              purchase.created_at
+            ).toLocaleString()}`}
+            onClick={() => history.push(`/purchase/${purchase._id}/track`)}
           />
         ))}
       </div>

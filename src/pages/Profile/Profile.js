@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import ProgressBar from '../../Components/ProgressBar';
 import { Label } from '../../Components/Typography';
@@ -6,10 +6,13 @@ import the_duck from '../../assets/images/theduck.png';
 import { TabContainer, TabContent, Tabs } from '../../Components/Tabs';
 import Settings from './Settings';
 import Services from './Services';
-const Components = { settings: Settings, services: Services };
+import { AppContext } from '../../context/AppState';
+import Users from './Users';
+const Components = { settings: Settings, services: Services, users: Users };
 
 export default function Profile() {
   const [currentTab, setCurrentTab] = useState('services');
+  const { user } = useContext(AppContext);
   const TabComponent = Components[currentTab];
   return (
     <>
@@ -22,7 +25,7 @@ export default function Profile() {
               </AvatarBubble>
             </div>
             <div className='w-full pr-2'>
-              <Label text='Zigwe' size='1.5' semiBold />
+              <Label text={user?.name} size='1.5' semiBold />
               <div className='flex justify-between leading-none'>
                 <Label text='Level 99' muted />
                 <Label text='9872xp to go' size='0.75' muted />
@@ -43,6 +46,11 @@ export default function Profile() {
             onClick={() => setCurrentTab('services')}
             title='Serviços'
             active={currentTab === 'services'}
+          />
+          <Tabs
+            onClick={() => setCurrentTab('users')}
+            title='Usuários'
+            active={currentTab === 'users'}
           />
           <Tabs
             onClick={() => setCurrentTab('settings')}

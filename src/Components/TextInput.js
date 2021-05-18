@@ -28,7 +28,7 @@ const StyledTextInput = styled.input.attrs(props => {
   text-transform: none;
   border-radius: ${props => props.theme.rounded};
   box-shadow: 0 0 0 1px transparent, 0 0 0 0 rgba(34, 36, 38, 0.15);
-  user-select: none;
+  /* user-select: none; */
   transition: opacity 0.2s ease, background-color 0.2s ease, color 0.2s ease,
     background 0.2s ease, box-shadow 0.2s ease;
   will-change: '';

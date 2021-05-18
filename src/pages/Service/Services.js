@@ -1,43 +1,42 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import { TextArea } from '../../Components/input/TextArea';
-import CollapseForm from '../../Components/layout/CollapseForm';
-import { TextInput } from '../../Components/TextInput';
 import { Icon, Label } from '../../Components/Typography';
+import ServiceService from '../../services/ServiceService';
+import ServiceForm from './ServiceForm';
 
-export default function Search({ location }) {
-  const query = new URLSearchParams(location.search).get('q');
+export default function Search() {
+  const location = useLocation();
+  const query = new URLSearchParams(location.search).get('q') ?? '';
+  const [services, setServices] = useState([]);
 
-  const services = [
-    {
-      _id: '1',
-      title: 'Serviço 1',
-      user_name: 'Usuário 1',
-      stars: 4,
-      price: 100.0,
-      description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras
-      placerat, massa condimentum lacinia fringilla, ex mauris lacinia
-      tellus`,
-      created_at: new Date(),
-    },
-    {
-      _id: '12',
-      title: 'Serviço 2',
-      user_name: 'Usuário 2',
-      stars: 2,
-      price: 100.0,
-      description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras
-      placerat, massa condimentum lacinia fringilla, ex mauris lacinia
-      tellus`,
-      created_at: new Date(),
-    },
-  ];
+  useEffect(() => {
+    fetchServices();
+  }, []);
+
+  async function fetchServices() {
+    try {
+      const service = new ServiceService();
+      const { data } = await service.getServices();
+      setServices(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const filteredServices = services.filter(service =>
+    service.title.includes(query)
+  );
+
+  function onSave(newService) {
+    setServices(stService => [...stService, newService]);
+  }
+
   return (
     <div className='p-3'>
       {query ? <Label text={`Buscando por: ${query}`} /> : null}
       <div>
-        {services.map(service => (
+        {filteredServices.map(service => (
           <Link to={`/services/${service._id}`} key={service._id}>
             <ServiceContainer className='rounded shadow mb-3 px-3 pt-3'>
               <div className='flex ml-auto justify-between'>
@@ -49,7 +48,7 @@ export default function Search({ location }) {
               </div>
               <div className='mt-3 flex justify-between italic'>
                 <div>
-                  <Label text={`${service.price} R$`} bold />
+                  <Label text={`${service.value} R$`} bold />
                 </div>
                 <div className='flex'>
                   <Label className='mr-4' text={service.user_name} bold />
@@ -60,17 +59,7 @@ export default function Search({ location }) {
           </Link>
         ))}
       </div>
-      <CollapseForm>
-        <div className='flex items-center mb-3'>
-          <Icon icon='FiZap' size='18' className='mr-2' />
-          <Label text='Add new service' bold size='1.3' />
-        </div>
-        <div>
-          <TextInput placeholder='Title' label='title' className='mb-2' />
-          <TextArea placeholder='Description' label='description' />
-        </div>
-      </CollapseForm>
-      {/* <ChatContainer /> */}
+      <ServiceForm onSave={onSave} />
     </div>
   );
 }
@@ -82,8 +71,9 @@ function Stars({ value }) {
   const stars = new Array(5).fill(0).map((_, i) => i + 1 <= value);
   return (
     <div className='flex'>
-      {stars.map(star => (
+      {stars.map((star, i) => (
         <Icon
+          key={i}
           size='20'
           className='mr-2'
           icon={star ? 'AiFillStar' : 'AiOutlineStar'}

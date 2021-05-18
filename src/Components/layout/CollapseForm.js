@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Collapse from '../Collapse';
 import { Button } from '../Button';
@@ -16,23 +16,33 @@ export function OverflowCollapse({ isOpen, children }) {
     </>
   );
 }
-export default function CollapseForm({ children }) {
-  const [isOpen, setIsOpen] = useState(false);
-
+export default function CollapseForm({
+  children,
+  isOpen,
+  setIsOpen,
+  onSubmit,
+  overlayButtonLabel,
+  overlayButtonIcon,
+}) {
   return (
     <Container className={`p-3 pb-5 rounded-t-xl`} isOpen={isOpen}>
       {isOpen ? null : (
         <Button
           className='ml-auto mb-3'
-          text={isOpen ? 'CLOSE' : 'ADD'}
-          icon={isOpen ? 'FiX' : 'FiPlus'}
+          text={overlayButtonLabel ? overlayButtonLabel : 'ADD'}
+          icon={overlayButtonIcon ? overlayButtonIcon : 'FiPlus'}
           onClick={() => setIsOpen(true)}
         />
       )}
       <Collapse isOpen={isOpen}>
         <div style={{ height: '87vh' }}>{children}</div>
         <div className='flex w-100 justify-center'>
-          <Button text='SUBMIT' className='mr-3' icon='FiCheck' />
+          <Button
+            text='SUBMIT'
+            className='mr-3'
+            icon='FiCheck'
+            onClick={() => onSubmit()}
+          />
           <Button text='CANCEL' icon='FiX' onClick={() => setIsOpen(false)} />
         </div>
       </Collapse>

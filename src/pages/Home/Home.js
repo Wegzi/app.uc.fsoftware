@@ -8,7 +8,7 @@ export default function Home() {
       <div>
         <Label className='text-center' text='[Nome do site]' size='3.5' />
       </div>
-      <div class='grid grid-cols-3 gap-4'>
+      <div className='grid grid-cols-3 gap-4'>
         <Card />
         <Card />
         <Card />

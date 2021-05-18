@@ -13,6 +13,7 @@ import Signup from './pages/Signup/Signup';
 import Help from './pages/Info/Help';
 import About from './pages/Info/About';
 import ServiceTracking from './pages/Service/ServiceTracking';
+import PurchaseSuccess from './pages/Purchase/PurchaseSuccess';
 
 export default function Routes() {
   return (
@@ -32,14 +33,21 @@ export default function Routes() {
             <Route exact path='/profile'>
               <Profile />
             </Route>
-            <Route exact path='/services' render={Services} />
+            <Route exact path='/services'>
+              <Services />
+            </Route>
             <Route exact path='/services/:service_id'>
               <Service />
             </Route>
             <Route exact path='/services/:service_id/purchase'>
               <Purchase />
             </Route>
-            <Route exact path='/services/:service_id/track'>
+            <Route
+              exact
+              path='/services/:service_id/purchase/success'
+              render={PurchaseSuccess}
+            />
+            <Route exact path='/purchase/:purchase_id/track'>
               <ServiceTracking />
             </Route>
             <Route exact path='/help' render={Help} />

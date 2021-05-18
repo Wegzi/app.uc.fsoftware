@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import React, { useContext, useEffect, useState } from 'react';
+import { useHistory, useParams } from 'react-router';
 import styled from 'styled-components';
 import { Button, GroupButton } from '../../Components/Button';
 import { TextInput } from '../../Components/TextInput';
 import { Icon, Label } from '../../Components/Typography';
+import { AppContext } from '../../context/AppState';
+import PurchaseService from '../../services/PurchaseService';
 
 const service = {
   _id: '1',
@@ -19,21 +21,32 @@ const service = {
 
 export default function Purchase() {
   const params = useParams();
-
-  const [step, setStep] = useState(0);
-
   const [purchase, setPurchase] = useState({
     payment_method: 'bill',
     service_id: null,
+    owner_id: null,
   });
+  const { user } = useContext(AppContext);
+  const history = useHistory();
+
+  const userId = user?._id;
 
   useEffect(() => {
     setPurchase(stPurchase => ({
       ...stPurchase,
       service_id: params.service_id,
+      owner_id: userId,
     }));
     return () => {};
-  }, [params.service_id]);
+  }, [params.service_id, userId]);
+
+  async function processPurchase() {
+    try {
+      const service = new PurchaseService();
+      await service.purchase(purchase.owner_id, purchase.service_id);
+      history.push('purchase/success');
+    } catch (error) {}
+  }
 
   return (
     <div className='container-full p-3'>
@@ -41,8 +54,8 @@ export default function Purchase() {
 
       <PurchaseCard className='p-3 mt-2 rounded shadow'>
         <PaymentMethod
-          onCancel={() => setStep(step - 1)}
-          onSave={() => setStep(step + 1)}
+          onCancel={() => history.goBack()}
+          onSave={processPurchase}
         />
       </PurchaseCard>
     </div>

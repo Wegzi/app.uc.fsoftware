@@ -3,10 +3,12 @@ import styled from 'styled-components';
 import Color from 'color';
 import {
   FiCheck,
+  FiEdit,
   FiPlus,
   FiSearch,
   FiSend,
   FiStar,
+  FiTrash2,
   FiUser,
   FiX,
 } from 'react-icons/fi';
@@ -16,6 +18,7 @@ const types = {
   input: 'input',
   light: 'light',
   success: 'success',
+  danger: 'danger',
 };
 
 const StyledButton = styled.button.attrs(props => {
@@ -100,4 +103,6 @@ const icons = {
   FiUser: FiUser,
   FiSend: FiSend,
   FiStar: FiStar,
+  FiTrash2: FiTrash2,
+  FiEdit: FiEdit,
 };
