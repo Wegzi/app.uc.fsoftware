@@ -5,7 +5,7 @@ import { Button } from '../../Components/Button';
 import { TextInput } from '../../Components/TextInput';
 import { Label } from '../../Components/Typography';
 import { AppContext } from '../../context/AppState';
-import UserService from '../../services/UserService';
+import User from '../../services/User';
 
 export default function Login() {
   const [login, setLogin] = useState({ email: '', password: '' });
@@ -20,8 +20,8 @@ export default function Login() {
 
   async function handleLogin() {
     try {
-      const userService = new UserService();
-      const { data } = await userService.login(login.email, login.password);
+      const service = new User();
+      const { data } = await service.login(login.email, login.password);
       console.log(data);
       appCtx.setUser(data);
       localStorage.setItem('user', JSON.stringify(data));

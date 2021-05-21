@@ -5,7 +5,7 @@ import Collapse from '../../Components/Collapse';
 import { TextInput } from '../../Components/TextInput';
 import { Label } from '../../Components/Typography';
 import { AppContext } from '../../context/AppState';
-import UserService from '../../services/UserService';
+import User from '../../services/User';
 import { ListItem } from './ListItem';
 
 export default function Users() {
@@ -17,8 +17,8 @@ export default function Users() {
   }, []);
   async function fetchUsers() {
     try {
-      const userService = new UserService();
-      const { data } = await userService.getUsers();
+      const service = new User();
+      const { data } = await service.getUsers();
       setUsers(data);
     } catch (error) {}
   }
@@ -75,16 +75,16 @@ function UserForm({ user: propsUser, onSave, onDelete }) {
 
   async function updateUser() {
     try {
-      const userService = new UserService();
-      const { data } = await userService.updateUser(user._id, user);
+      const service = new User();
+      const { data } = await service.updateUser(user._id, user);
       onSave(data);
     } catch (error) {}
   }
 
   async function deleteUser() {
     try {
-      const userService = new UserService();
-      await userService.deleteUser(user._id);
+      const service = new User();
+      await service.deleteUser(user._id);
       onDelete(user);
     } catch (error) {}
   }

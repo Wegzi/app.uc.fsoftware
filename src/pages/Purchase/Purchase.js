@@ -5,7 +5,7 @@ import { Button, GroupButton } from '../../Components/Button';
 import { TextInput } from '../../Components/TextInput';
 import { Icon, Label } from '../../Components/Typography';
 import { AppContext } from '../../context/AppState';
-import PurchaseService from '../../services/PurchaseService';
+import PurchaseService from '../../services/Purchase';
 
 const service = {
   _id: '1',
@@ -61,30 +61,6 @@ export default function Purchase() {
     </div>
   );
 }
-
-// function PayerData({ onCancel, onSave }) {
-//   return (
-//     <>
-//       <div className='flex px-2 mb-3 items-center'>
-//         <Icon icon='FiUser' size='20' className='mr-2' />
-//         <Label text='Dados do contratante' />
-//       </div>
-//       <TextInput className='mb-3' value='' label='Nome completo' />
-//       <TextInput className='mb-3' value='' label='Email' />
-//       <TextInput className='mb-3' value='' label='Telefone' />
-//       <TextInput className='mb-3' value='' label='CPF/CNPJ' />
-//       <div className='flex justify-between mt-3'>
-//         <Button
-//           text='Cancelar'
-//           className='mr-2'
-//           type='light'
-//           onClick={onCancel}
-//         />
-//         <Button text='Próximo' onClick={onSave} />
-//       </div>
-//     </>
-//   );
-// }
 
 function PaymentMethod({ onCancel, onSave }) {
   const [payment, setPayment] = useState({ payment_method: 'credit_card' });

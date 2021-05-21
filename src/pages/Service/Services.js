@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { Icon, Label } from '../../Components/Typography';
-import ServiceService from '../../services/ServiceService';
+import Service from '../../services/Service';
 import ServiceForm from './ServiceForm';
 
 export default function Search() {
@@ -16,7 +16,7 @@ export default function Search() {
 
   async function fetchServices() {
     try {
-      const service = new ServiceService();
+      const service = new Service();
       const { data } = await service.getServices();
       setServices(data);
     } catch (error) {

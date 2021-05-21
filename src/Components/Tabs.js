@@ -10,7 +10,11 @@ export function TabContainer({ children, ...props }) {
 
 export function Tabs({ title, active, ...props }) {
   return (
-    <StyledTabs className='py-2 px-6 rounded-t-lg' active={active} {...props}>
+    <StyledTabs
+      className='py-2 px-6 rounded-t-lg truncate'
+      active={active}
+      {...props}
+    >
       {title}
     </StyledTabs>
   );

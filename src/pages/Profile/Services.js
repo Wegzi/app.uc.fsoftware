@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { ChevronRight } from '../../assets/outline';
 import { Label } from '../../Components/Typography';
 import { AppContext } from '../../context/AppState';
-import UserService from '../../services/UserService';
+import User from '../../services/User';
 
 export default function Services() {
   const [services, setServices] = useState([]);
@@ -22,7 +22,7 @@ export default function Services() {
   }, [userId]);
   async function fetchSelfServices(userId) {
     try {
-      const service = new UserService();
+      const service = new User();
       const { data } = await service.findUserServices(userId);
       setServices(data);
     } catch (error) {
@@ -31,7 +31,7 @@ export default function Services() {
   }
   async function fetchPurchases(userId) {
     try {
-      const service = new UserService();
+      const service = new User();
       const { data } = await service.findUserPurchases(userId);
       setPurchases(data);
     } catch (error) {

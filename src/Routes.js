@@ -12,8 +12,8 @@ import Purchase from './pages/Purchase/Purchase';
 import Signup from './pages/Signup/Signup';
 import Help from './pages/Info/Help';
 import About from './pages/Info/About';
-import ServiceTracking from './pages/Service/ServiceTracking';
 import PurchaseSuccess from './pages/Purchase/PurchaseSuccess';
+import PurchaseReport from './pages/Purchase/PurchaseReport';
 
 export default function Routes() {
   return (
@@ -48,7 +48,7 @@ export default function Routes() {
               render={PurchaseSuccess}
             />
             <Route exact path='/purchase/:purchase_id/track'>
-              <ServiceTracking />
+              <PurchaseReport />
             </Route>
             <Route exact path='/help' render={Help} />
             <Route exact path='/about' render={About} />

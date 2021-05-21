@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import { Button } from '../../Components/Button';
 import { TextInput } from '../../Components/TextInput';
 import { Label } from '../../Components/Typography';
 import { AppContext } from '../../context/AppState';
-import UserService from '../../services/UserService';
+import User from '../../services/User';
 
 export default function Signup() {
   const [user, setUser] = useState({
@@ -20,8 +20,8 @@ export default function Signup() {
   const appCtx = useContext(AppContext);
   async function handleLogin() {
     try {
-      const userService = new UserService();
-      const { data } = await userService.signup(user);
+      const service = new User();
+      const { data } = await service.signup(user);
       appCtx.setUser(data);
       localStorage.setItem('user', JSON.stringify(data));
       history.push('/profile');

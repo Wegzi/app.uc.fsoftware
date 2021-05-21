@@ -4,13 +4,12 @@ import CollapseForm from '../../Components/layout/CollapseForm';
 import { TextInput } from '../../Components/TextInput';
 import { Icon, Label } from '../../Components/Typography';
 import { AppContext } from '../../context/AppState';
-import ServiceService from '../../services/ServiceService';
+import Service from '../../services/Service';
 
 const initialState = {
   title: '',
   description: '',
   value: '',
-  owner_id: undefined,
 };
 export default function ServiceForm({ onSave, service: propsService }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,13 +27,13 @@ export default function ServiceForm({ onSave, service: propsService }) {
 
   async function handleSave() {
     try {
-      const service = new ServiceService();
+      const service = new Service();
       if (!propsService?._id) {
         const { data } = await service.createService(newService);
         setIsOpen(false);
         const timeout = setTimeout(() => {
           onSave(data);
-          setNewService(initialState);
+          setNewService(stService => ({ ...stService, ...initialState }));
         }, 400);
         timeout();
         clearTimeout(timeout);
@@ -46,7 +45,7 @@ export default function ServiceForm({ onSave, service: propsService }) {
         setIsOpen(false);
         const timeout = setTimeout(() => {
           onSave(data);
-          setNewService(initialState);
+          setNewService(stService => ({ ...stService, ...initialState }));
         }, 400);
         timeout();
         clearTimeout(timeout);

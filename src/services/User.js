@@ -1,29 +1,29 @@
 import axios from 'axios';
-export default function UserService() {
+export default function User() {
   this.api = axios.create({
     baseURL: `${process.env.REACT_APP_API_URL}/users`,
   });
 }
 
-UserService.prototype.login = function (email, password) {
+User.prototype.login = function (email, password) {
   return this.api.post('/login', { email, password });
 };
-UserService.prototype.signup = function (user) {
+User.prototype.signup = function (user) {
   return this.api.post('', { ...user });
 };
-UserService.prototype.getUsers = function () {
+User.prototype.getUsers = function () {
   return this.api.get('');
 };
-UserService.prototype.updateUser = function (user_id, user) {
+User.prototype.updateUser = function (user_id, user) {
   return this.api.put(`/${user_id}`, { ...user });
 };
-UserService.prototype.deleteUser = function (user_id) {
+User.prototype.deleteUser = function (user_id) {
   return this.api.delete(`/${user_id}`);
 };
 
-UserService.prototype.findUserServices = function (user_id) {
+User.prototype.findUserServices = function (user_id) {
   return this.api.get(`/${user_id}/services`);
 };
-UserService.prototype.findUserPurchases = function (user_id) {
+User.prototype.findUserPurchases = function (user_id) {
   return this.api.get(`/${user_id}/purchases`);
 };
