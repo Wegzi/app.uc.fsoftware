@@ -10,6 +10,7 @@ import {
   FiStar,
   FiTrash2,
   FiUser,
+  FiUserPlus,
   FiX,
 } from 'react-icons/fi';
 
@@ -105,4 +106,5 @@ const icons = {
   FiStar: FiStar,
   FiTrash2: FiTrash2,
   FiEdit: FiEdit,
+  FiUserPlus: FiUserPlus,
 };

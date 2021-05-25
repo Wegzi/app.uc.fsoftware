@@ -10,6 +10,7 @@ const StyledTextInput = styled.input.attrs(props => {
   width: 100%;
   min-width: 50px;
   min-height: 1em;
+  height: 39px;
   outline: 0;
   border: none;
   vertical-align: baseline;

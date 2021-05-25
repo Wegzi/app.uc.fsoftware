@@ -6,6 +6,7 @@ import {
   FiCheck,
   FiChevronDown,
   FiCreditCard,
+  FiEdit,
   FiPlus,
   FiPower,
   FiSearch,
@@ -34,6 +35,7 @@ const icons = {
   FiUserPlus: FiUserPlus,
   FiPower: FiPower,
   FiChevronDown: FiChevronDown,
+  FiEdit: FiEdit,
   //
   AiFillStar: AiFillStar,
   AiOutlineStar: AiOutlineStar,

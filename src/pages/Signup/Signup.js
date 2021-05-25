@@ -13,8 +13,8 @@ export default function Signup() {
     email: '',
     password: '',
     cpf: '',
-    birth_data: '',
-    phone: '',
+    birth_date: '',
+    phone_number: '',
   });
   const history = useHistory();
   const appCtx = useContext(AppContext);
@@ -44,7 +44,7 @@ export default function Signup() {
           className='mb-2'
           type='text'
           onChange={handleChange}
-        />{' '}
+        />
         <TextInput
           name='email'
           label='Email'
@@ -67,14 +67,14 @@ export default function Signup() {
           onChange={handleChange}
         />
         <TextInput
-          name='birth_data'
+          name='birth_date'
           label='Data de nascimento'
           className='mb-4'
-          type='password'
+          type='date'
           onChange={handleChange}
         />
         <TextInput
-          name='phone'
+          name='phone_number'
           label='Telefone'
           className='mb-4'
           type='number'

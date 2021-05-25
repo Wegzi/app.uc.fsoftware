@@ -21,6 +21,7 @@ export default function CollapseForm({
   onSubmit,
   overlayButtonLabel,
   overlayButtonIcon,
+  onClose,
 }) {
   return (
     <Container className={`p-3 pb-5 rounded-t-xl`} isOpen={isOpen}>
@@ -41,7 +42,11 @@ export default function CollapseForm({
             icon='FiCheck'
             onClick={() => onSubmit()}
           />
-          <Button text='CANCEL' icon='FiX' onClick={() => setIsOpen(false)} />
+          <Button
+            text='CANCEL'
+            icon='FiX'
+            onClick={() => onClose() || setIsOpen(false)}
+          />
         </div>
       </Collapse>
     </Container>
