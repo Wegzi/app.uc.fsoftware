@@ -12,7 +12,7 @@ const Components = { settings: Settings, services: Services, users: Users };
 
 export default function Profile() {
   const [currentTab, setCurrentTab] = useState('services');
-  const { user } = useContext(AppContext);
+  const { user, rules } = useContext(AppContext);
   const TabComponent = Components[currentTab];
   return (
     <>
@@ -47,11 +47,13 @@ export default function Profile() {
             title='Serviços'
             active={currentTab === 'services'}
           />
-          <Tabs
-            onClick={() => setCurrentTab('users')}
-            title='Usuários'
-            active={currentTab === 'users'}
-          />
+          {rules.read_users ? (
+            <Tabs
+              onClick={() => setCurrentTab('users')}
+              title='Usuários'
+              active={currentTab === 'users'}
+            />
+          ) : null}
           <Tabs
             onClick={() => setCurrentTab('settings')}
             title='Configurações'

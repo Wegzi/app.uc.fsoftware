@@ -12,7 +12,8 @@ export default function Users() {
   const [users, setUsers] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [editUser, setEditUser] = useState();
-  const appCtx = useContext(AppContext);
+  const { hierarch, ...appCtx } = useContext(AppContext);
+
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -47,7 +48,9 @@ export default function Users() {
     setEditUser();
   }
 
-  const filteredUser = users.filter(user => user._id !== appCtx.user._id);
+  const filteredUser = users
+    .filter(user => user._id !== appCtx.user._id)
+    .filter(user => ~hierarch.indexOf(user.role));
   return (
     <div>
       <Label text='Todos os usuários' bold />
@@ -87,7 +90,7 @@ const initialState = {
   phone_number: '',
   role: 'administrator',
 };
-const roles = [
+const ROLES = [
   { label: 'Administrador', value: 'administrator' },
   { label: 'Coordenador', value: 'coordinator' },
   { label: 'Aluno', value: 'student' },
@@ -104,6 +107,7 @@ function UserForm({
   onDelete,
 }) {
   const [user, setUser] = useState({});
+  const { hierarch } = useContext(AppContext);
   useEffect(() => {
     if (propsUser) setUser(stUser => ({ ...stUser, ...propsUser }));
   }, [propsUser]);
@@ -133,7 +137,10 @@ function UserForm({
   async function handleChange({ target: { value, name } }) {
     setUser(stUser => ({ ...stUser, [name]: value }));
   }
+
+  const roles = ROLES.filter(role => ~hierarch.indexOf(role.value));
   const selectedRole = roles.find(role => role.value === user.role);
+
   return (
     <CollapseForm
       isOpen={isOpen}

@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 import { Button } from '../../Components/Button';
 import { Label } from '../../Components/Typography';
+import { AppContext } from '../../context/AppState';
 import ServiceService from '../../services/Service';
 import ServiceChat from './ServiceChat';
 import ServiceForm from './ServiceForm';
@@ -9,6 +10,7 @@ import ServiceForm from './ServiceForm';
 export default function Service() {
   const [service, setService] = useState({});
   const [isOpen, setIsOpen] = useState(false);
+  const { rules } = useContext(AppContext);
   const history = useHistory();
   const params = useParams();
 
@@ -40,17 +42,19 @@ export default function Service() {
         <Label text={service.title} semiBold size='1.2' />
         <div className='flex'>
           <Button
-            className='mr-3'
             text='Contratar'
             icon='FiCheck'
             onClick={() => history.push(`${params.service_id}/purchase`)}
           />
-          <Button
-            text='Deletar'
-            icon='FiTrash2'
-            onClick={() => onDelete(service._id)}
-            type='danger'
-          />
+          {rules.delete_services ? (
+            <Button
+              text='Deletar'
+              icon='FiTrash2'
+              onClick={() => onDelete(service._id)}
+              type='danger'
+              className='ml-3'
+            />
+          ) : null}
         </div>
       </div>
       <div className='flex'>
@@ -70,7 +74,9 @@ export default function Service() {
           />
         </div>
         <ServiceChat isOpen={isOpen} setIsOpen={setIsOpen} service={service} />
-        <ServiceForm onSave={onSave} service={service} />
+        {rules.update_services ? (
+          <ServiceForm onSave={onSave} service={service} />
+        ) : null}
       </div>
     </div>
   );

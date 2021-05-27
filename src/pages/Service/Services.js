@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { Icon, Label } from '../../Components/Typography';
+import { AppContext } from '../../context/AppState';
 import Service from '../../services/Service';
 import ServiceForm from './ServiceForm';
 
@@ -9,7 +10,7 @@ export default function Search() {
   const location = useLocation();
   const query = new URLSearchParams(location.search).get('q') ?? '';
   const [services, setServices] = useState([]);
-
+  const { rules } = useContext(AppContext);
   useEffect(() => {
     fetchServices();
   }, []);
@@ -31,7 +32,6 @@ export default function Search() {
   function onSave(newService) {
     setServices(stService => [...stService, newService]);
   }
-
   return (
     <div className='p-3'>
       {query ? <Label text={`Buscando por: ${query}`} /> : null}
@@ -59,7 +59,7 @@ export default function Search() {
           </Link>
         ))}
       </div>
-      <ServiceForm onSave={onSave} />
+      {rules.create_services ? <ServiceForm onSave={onSave} /> : null}
     </div>
   );
 }

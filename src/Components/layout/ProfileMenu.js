@@ -45,7 +45,7 @@ export default function ProfileMenu() {
 
   return (
     <div>
-      <Button icon='FiUser' onClick={() => setIsOpen(!isOpen)} />
+      <Button icon='FiUser' type='input' onClick={() => setIsOpen(!isOpen)} />
       <CollapseMenu isOpen={isOpen} options={options} />
     </div>
   );
@@ -104,6 +104,6 @@ const CollapseMenu = ({ isOpen, options }) => {
 const MenuContainer = styled.div`
   max-height: 50vh;
   background-color: ${({ theme }) => theme.collapseMenu.background};
-  min-width: 30vw;
+  min-width: 50vw;
   margin-bottom: 3px;
 `;

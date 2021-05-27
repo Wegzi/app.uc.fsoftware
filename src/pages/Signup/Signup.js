@@ -15,6 +15,7 @@ export default function Signup() {
     cpf: '',
     birth_date: '',
     phone_number: '',
+    role: 'user',
   });
   const history = useHistory();
   const appCtx = useContext(AppContext);

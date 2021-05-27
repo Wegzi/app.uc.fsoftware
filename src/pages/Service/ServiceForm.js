@@ -1,30 +1,60 @@
 import React, { useContext, useEffect, useState } from 'react';
+import SelectInput, {
+  CreatableSelectInput,
+} from '../../Components/input/SelectInput';
 import { TextArea } from '../../Components/input/TextArea';
 import CollapseForm from '../../Components/layout/CollapseForm';
 import { TextInput } from '../../Components/TextInput';
 import { Icon, Label } from '../../Components/Typography';
 import { AppContext } from '../../context/AppState';
 import Service from '../../services/Service';
+import User from '../../services/User';
 
 const initialState = {
   title: '',
   description: '',
   value: '',
+  team: [],
+  tags: [],
 };
 export default function ServiceForm({ onSave, service: propsService }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [students, setStudents] = useState([]);
+  const [tags, setTags] = useState([]);
   const [newService, setNewService] = useState({
     ...initialState,
   });
   const { user } = useContext(AppContext);
+
   useEffect(() => {
     setNewService(stService => ({ ...stService, owner_id: user?._id }));
   }, [user]);
+
   useEffect(() => {
     if (propsService)
       setNewService(stService => ({ ...stService, ...propsService }));
   }, [propsService]);
 
+  useEffect(() => {
+    fetchUsers();
+    fetchTags();
+  }, []);
+
+  async function fetchUsers() {
+    try {
+      const service = new User();
+      const { data } = await service.getUsers();
+      const students = data.filter(user => user.role === 'student');
+      setStudents(students);
+    } catch (error) {}
+  }
+  async function fetchTags() {
+    try {
+      const service = new Service();
+      const { data } = await service.getTags();
+      setTags(data);
+    } catch (error) {}
+  }
   async function handleSave() {
     try {
       const service = new Service();
@@ -56,6 +86,31 @@ export default function ServiceForm({ onSave, service: propsService }) {
   function handleChange({ target: { name, value } }) {
     setNewService(stService => ({ ...stService, [name]: value }));
   }
+
+  function handleChangeTeam(options) {
+    setNewService(stService => ({
+      ...stService,
+      team: options?.map(option => option.value) ?? [],
+    }));
+  }
+  function handleChangeTags(options) {
+    setNewService(stService => ({
+      ...stService,
+      tags: options?.map(option => option.value) ?? [],
+    }));
+  }
+
+  const studentOptions = students.map(student => ({
+    label: student.name,
+    value: student._id,
+  }));
+  const tagsOptions = tags.map(tag => ({ label: tag, value: tag }));
+
+  const selectedTags = newService.tags.map(tag => ({ label: tag, value: tag }));
+  const selectedStudents = studentOptions.filter(
+    student => ~newService.team.indexOf(student.value)
+  );
+
   return (
     <CollapseForm
       isOpen={isOpen}
@@ -87,6 +142,7 @@ export default function ServiceForm({ onSave, service: propsService }) {
           value={newService.description}
           placeholder='Descrição'
           label='Descrição'
+          className='mb-2'
         />
         <TextInput
           name='value'
@@ -94,6 +150,24 @@ export default function ServiceForm({ onSave, service: propsService }) {
           value={newService.value}
           placeholder='Valor'
           label='Valor'
+          className='mb-2'
+        />
+        <SelectInput
+          onChange={handleChangeTeam}
+          label='Time'
+          className='mb-2'
+          options={studentOptions}
+          isMulti
+          value={selectedStudents}
+        />
+        <CreatableSelectInput
+          onChange={handleChangeTags}
+          options={tagsOptions}
+          label='Tags'
+          className='mb-2'
+          isClearable
+          isMulti
+          value={selectedTags}
         />
       </div>
     </CollapseForm>

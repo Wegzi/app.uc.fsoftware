@@ -20,3 +20,6 @@ Service.prototype.updateService = function (service_id, service) {
 Service.prototype.deleteService = function (service_id) {
   return this.api.delete(`/${service_id}`);
 };
+Service.prototype.getTags = function () {
+  return this.api.get(`/tags`);
+};

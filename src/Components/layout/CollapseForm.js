@@ -45,7 +45,7 @@ export default function CollapseForm({
           <Button
             text='CANCEL'
             icon='FiX'
-            onClick={() => onClose() || setIsOpen(false)}
+            onClick={() => (onClose ? onClose() : setIsOpen(false))}
           />
         </div>
       </Collapse>
