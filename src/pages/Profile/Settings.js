@@ -14,7 +14,7 @@ export default function Settings() {
           icon='FiHeadphones'
           label='Help and Support'
         />
-        <SettingsItem className='p-3 rounded' icon='FiStare' label='About' />
+        <SettingsItem className='p-3 rounded' icon='FiStar' label='About' />
       </ul>
     </div>
   );

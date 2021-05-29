@@ -52,7 +52,7 @@ export default function Services() {
   }
   return (
     <div>
-      {user.role === 'administrator' || user.role === 'coordinator' ? (
+      {user?.role === 'administrator' || user?.role === 'coordinator' ? (
         <>
           <Label text='Seus serviços' bold />
           <div className='shadow rounded'>
@@ -79,7 +79,7 @@ export default function Services() {
           />
         ))}
       </div>
-      {user.role === 'student' ? (
+      {user?.role === 'student' ? (
         <>
           <div className='my-5 border' />
           <Label text='Serviços prestando' bold />
