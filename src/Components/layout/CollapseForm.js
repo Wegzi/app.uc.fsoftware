@@ -6,7 +6,10 @@ import { Button } from '../Button';
 export function OverflowCollapse({ isOpen, children }) {
   return (
     <>
-      <Container className={`p-3 pb-5 rounded-t-xl`} isOpen={isOpen}>
+      <Container
+        className={`p-3 pb-5 rounded-t-xl sm:w-full md:w-1/2`}
+        isOpen={isOpen}
+      >
         <Collapse isOpen={isOpen}>
           <div style={{ height: '92vh' }}>{children}</div>
         </Collapse>
@@ -24,7 +27,7 @@ export default function CollapseForm({
   onClose,
 }) {
   return (
-    <Container className={`p-3 pb-5 rounded-t-xl`} isOpen={isOpen}>
+    <Container className={`p-3 pb-5 rounded-t-xl w-full`} isOpen={isOpen}>
       {isOpen ? null : (
         <Button
           className='ml-auto mb-3'
@@ -60,8 +63,8 @@ const Container = styled.div`
   transform: translateX(-50%);
   background: ${({ isOpen, theme }) =>
     isOpen ? theme.ultralight + 'f5' : 'transparent'};
-  transition: background-color 500ms;
-  width: 100%;
+  opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
+  transition: opacity 500ms;
   z-index: ${({ isOpen }) => (isOpen ? 999 : 0)};
 `;
 

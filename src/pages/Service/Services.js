@@ -33,15 +33,15 @@ export default function Search() {
     setServices(stService => [...stService, newService]);
   }
   return (
-    <div className='p-3'>
+    <div className='p-3 container mx-auto'>
       {query ? <Label text={`Buscando por: ${query}`} /> : null}
-      <div>
+      <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
         {filteredServices.map(service => (
           <Link to={`/services/${service._id}`} key={service._id}>
-            <ServiceContainer className='rounded shadow mb-3 px-3 pt-3'>
+            <ServiceContainer className='rounded shadow px-3 pt-3 pb-1'>
               <div className='flex ml-auto justify-between'>
                 <Label text={service.title} bold />
-                <Stars value={service.stars} />
+                <Stars value={service.rating} />
               </div>
               <div>
                 <p>{service.description}</p>
@@ -67,7 +67,7 @@ const ServiceContainer = styled.div`
   background-color: ${({ theme }) => theme.white};
 `;
 
-function Stars({ value }) {
+export function Stars({ value }) {
   const stars = new Array(5).fill(0).map((_, i) => i + 1 <= value);
   return (
     <div className='flex'>

@@ -4,6 +4,7 @@ import Color from 'color';
 import {
   FiCheck,
   FiEdit,
+  FiMessageSquare,
   FiPlus,
   FiSearch,
   FiSend,
@@ -107,4 +108,5 @@ const icons = {
   FiTrash2: FiTrash2,
   FiEdit: FiEdit,
   FiUserPlus: FiUserPlus,
+  FiMessageSquare: FiMessageSquare,
 };

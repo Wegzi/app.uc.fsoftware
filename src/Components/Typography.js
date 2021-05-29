@@ -22,6 +22,10 @@ const StyledLabel = styled.label`
   font-size: ${({ size }) => size || 1}em;
   font-weight: ${({ weight }) => weight || 500};
   opacity: ${({ opacity }) => opacity || 1};
+  color: ${({ type, theme }) => {
+    console.log(type);
+    return theme[type] || 'unset';
+  }};
 `;
 
 const icons = {
@@ -56,9 +60,10 @@ export function Icon({ icon, className, style, size }) {
     <IconComponent className={className} style={style} size={size || 20} />
   );
 }
-export function Label({ text, className, size, bold, semiBold, muted }) {
+export function Label({ type, text, className, size, bold, semiBold, muted }) {
   return (
     <StyledLabel
+      type={type}
       className={className}
       size={size}
       weight={bold ? 700 : semiBold ? 600 : null}

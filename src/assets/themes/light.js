@@ -3,6 +3,8 @@ const light = {
   white: '#FFFFFF',
   light: '#EEEEEE',
   primary: '#6a2c70',
+  success: '#79740E',
+  //
   headerHeight: '60px',
   rounded: '0.45rem',
   shadowsm: '0 1px .5px rgba(0, 0, 0, .13)',

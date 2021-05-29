@@ -3,6 +3,7 @@ import { useHistory, useParams } from 'react-router';
 import styled from 'styled-components';
 import { Button, GroupButton } from '../../Components/Button';
 import { TextInput } from '../../Components/TextInput';
+import toast from '../../Components/toast';
 import { Icon, Label } from '../../Components/Typography';
 import { AppContext } from '../../context/AppState';
 import PurchaseService from '../../services/Purchase';
@@ -45,11 +46,17 @@ export default function Purchase() {
       const service = new PurchaseService();
       await service.purchase(purchase.owner_id, purchase.service_id);
       history.push('purchase/success');
-    } catch (error) {}
+    } catch (error) {
+      if (error?.response?.data[0]) {
+        error?.response?.data?.forEach(invalid => {
+          toast.error(invalid.message);
+        });
+      }
+    }
   }
 
   return (
-    <div className='container-full p-3'>
+    <div className='container mx-auto md:w-1/2 p-3'>
       <Label text={`Contratar: ${service.title}`} size='1.3' semiBold />
 
       <PurchaseCard className='p-3 mt-2 rounded shadow'>

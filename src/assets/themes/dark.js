@@ -4,6 +4,8 @@ const dark = {
   light: '#424242',
   primary: '#6a2c70',
   deeppurple: '#673AB7',
+  success: '#79740E',
+  //
   headerHeight: '60px',
   rounded: '0.45rem',
   shadowsm: '0 1px .5px rgba(0, 0, 0, .13)',

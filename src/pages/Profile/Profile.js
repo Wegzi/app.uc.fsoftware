@@ -15,7 +15,7 @@ export default function Profile() {
   const { user, rules } = useContext(AppContext);
   const TabComponent = Components[currentTab];
   return (
-    <>
+    <div className='md:grid grid-cols-1 md:grid-cols-2 md:gap-4 h-full container mx-auto'>
       <div>
         <MainContainer className='rounded-b-xl shadow-xl flex'>
           <UserInfo>
@@ -34,13 +34,13 @@ export default function Profile() {
             </div>
           </UserInfo>
         </MainContainer>
-      </div>
-      <div className='pt-12 pb-3'>
-        <div className='grid gap-4 grid-cols-3 px-2'>
+        <div className='grid gap-4 grid-cols-3 px-2 pt-12 pb-3'>
           <MetricCard value={'12k'} label='Something' />
           <MetricCard value={'12k'} label='Something' />
           <MetricCard value={'12k'} label='Something' />
         </div>
+      </div>
+      <div className='h-full pb-2 flex flex-col'>
         <TabContainer className='mt-3'>
           <Tabs
             onClick={() => setCurrentTab('services')}
@@ -60,11 +60,11 @@ export default function Profile() {
             active={currentTab === 'settings'}
           />
         </TabContainer>
-        <TabContent className='rounded-b-xl px-3 py-4'>
+        <TabContent className='rounded-b-xl px-3 py-4 h-full'>
           <TabComponent />
         </TabContent>
       </div>
-    </>
+    </div>
   );
 }
 

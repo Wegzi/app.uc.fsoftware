@@ -39,7 +39,7 @@ export default function Signup() {
     setUser(stUser => ({ ...stUser, [name]: value }));
   }
   return (
-    <div className='container mx-auto p-3'>
+    <div className='container mx-auto p-3 md:w-1/3'>
       <Label text='Cadastrar' size='1.2' className='text-center' semiBold />
       <Card className='p-4 mt-2 rounded shadow'>
         <TextInput
