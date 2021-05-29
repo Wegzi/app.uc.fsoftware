@@ -7,7 +7,7 @@ export function ListItem({ label, onClick, icon, children }) {
     <StyledListItem>
       <div className='p-3 flex justify-between' onClick={onClick}>
         <Label text={label} semiBold />
-        {icon ? <Icon icon={icon} style={{ width: '19px' }} /> : null}
+        {icon ? <Icon icon={icon} /> : null}
       </div>
       {children}
     </StyledListItem>

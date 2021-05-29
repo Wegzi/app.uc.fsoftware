@@ -32,7 +32,7 @@ export default function PurchaseReport() {
       <ContentBox className='p-3 rounded shadow'>
         <Label text='Atualizações: ' semiBold />
         {reports.map(report => (
-          <UpdateCard className='p-3 rounded mb-3'>
+          <UpdateCard key={report._id} className='p-3 rounded mb-3'>
             <Label text={report.title} />
             <p>{report.message}</p>
             <div className='text-right mt-3 '>

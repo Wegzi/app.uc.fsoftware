@@ -25,20 +25,20 @@ const StyledLabel = styled.label`
 `;
 
 const icons = {
-  FiSearch: FiSearch,
-  FiPlus: FiPlus,
-  FiX: FiX,
-  FiCheck: FiCheck,
-  FiZap: FiZap,
-  FiUser: FiUser,
-  FiCreditCard: FiCreditCard,
   FiArrowRight: FiArrowRight,
-  FiUserPlus: FiUserPlus,
-  FiPower: FiPower,
+  FiCheck: FiCheck,
   FiChevronDown: FiChevronDown,
-  FiFiHeadphonesEdit: FiEdit,
+  FiCreditCard: FiCreditCard,
+  FiEdit: FiEdit,
   FiHeadphones: FiHeadphones,
+  FiPlus: FiPlus,
+  FiPower: FiPower,
+  FiSearch: FiSearch,
   FiStar: FiStar,
+  FiUser: FiUser,
+  FiUserPlus: FiUserPlus,
+  FiX: FiX,
+  FiZap: FiZap,
   //
   AiFillStar: AiFillStar,
   AiOutlineStar: AiOutlineStar,
@@ -51,6 +51,7 @@ export function Icon({ icon, className, style, size }) {
     }
   }
   const IconComponent = useMemo(() => renderIcon(icon), [icon]);
+  if (!IconComponent) return null;
   return (
     <IconComponent className={className} style={style} size={size || 20} />
   );
