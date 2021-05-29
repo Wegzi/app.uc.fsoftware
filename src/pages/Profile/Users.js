@@ -3,6 +3,7 @@ import { Button } from '../../Components/Button';
 import SelectInput from '../../Components/input/SelectInput';
 import CollapseForm from '../../Components/layout/CollapseForm';
 import { TextInput } from '../../Components/TextInput';
+import toast from '../../Components/toast';
 import { Icon, Label } from '../../Components/Typography';
 import { AppContext } from '../../context/AppState';
 import User from '../../services/User';
@@ -124,7 +125,13 @@ function UserForm({
         onCreate(data);
       }
       setUser(initialState);
-    } catch (error) {}
+    } catch (error) {
+      if (error?.response?.data[0]) {
+        error?.response?.data?.forEach(invalid => {
+          toast.error(invalid.message);
+        });
+      }
+    }
   }
 
   async function deleteUser() {
@@ -185,26 +192,23 @@ function UserForm({
             handleChange({ target: { name: 'role', value: ev.value } })
           }
         />
-        {!propsUser?._id ? (
-          <>
-            <TextInput
-              name='email'
-              label='Email'
-              className='mb-2'
-              type='email'
-              value={user.email}
-              onChange={handleChange}
-            />
-            <TextInput
-              name='password'
-              label='Senha'
-              className='mb-4'
-              type='password'
-              onChange={handleChange}
-              value={user.password}
-            />
-          </>
-        ) : null}
+        <TextInput
+          name='email'
+          label='Email'
+          className='mb-2'
+          type='email'
+          value={user.email}
+          onChange={handleChange}
+        />
+        <TextInput
+          name='password'
+          label='Senha'
+          className='mb-4'
+          type='password'
+          onChange={handleChange}
+          value={user.password}
+        />
+        {!propsUser?._id ? <></> : null}
         <TextInput
           name='cpf'
           label='CPF'

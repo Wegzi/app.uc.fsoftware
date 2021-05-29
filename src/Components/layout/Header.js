@@ -1,9 +1,8 @@
 import Color from 'color';
 import React, { useState } from 'react';
+import { FiMenu, FiX } from 'react-icons/fi';
 import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import Menu from '../../assets/outline/Menu';
-import XIcon from '../../assets/outline/X';
 import { Button } from '../Button';
 import Collapse from '../Collapse';
 import { TextInput } from '../TextInput';
@@ -107,7 +106,11 @@ const CollapseMenu = ({ isOpen, options }) => (
 const MenuToggler = ({ isOpen, onClick }) => (
   <>
     <div className='h-full cursor-pointer' onClick={onClick}>
-      {isOpen ? <XIcon className='h-full' /> : <Menu className='h-full' />}
+      {isOpen ? (
+        <FiX className='h-full' size='26' />
+      ) : (
+        <FiMenu className='h-full' size='26' />
+      )}
     </div>
   </>
 );

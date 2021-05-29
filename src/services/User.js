@@ -9,7 +9,10 @@ User.prototype.login = function (email, password) {
   return this.api.post('/login', { email, password });
 };
 User.prototype.signup = function (user) {
-  return this.api.post('', { ...user });
+  return this.api.post('', {
+    ...user,
+    birth_date: new Date(user.birth_date),
+  });
 };
 User.prototype.getUsers = function () {
   return this.api.get('');

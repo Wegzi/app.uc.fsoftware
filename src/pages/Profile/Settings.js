@@ -1,28 +1,20 @@
 import Color from 'color';
 import React from 'react';
+import { FiChevronRight } from 'react-icons/fi';
 import styled from 'styled-components';
-import { ChevronRight } from '../../assets/outline';
 import { Icon, Label } from '../../Components/Typography';
 
 export default function Settings() {
   return (
     <div>
       <ul className='shadow rounded'>
+        <SettingsItem className='p-3 rounded' icon='FiUser' label='Account' />
         <SettingsItem
           className='p-3 rounded'
-          icon='user-circle'
-          label='Account'
-        />
-        <SettingsItem
-          className='p-3 rounded'
-          icon='light-bulb'
+          icon='FiHeadphones'
           label='Help and Support'
         />
-        <SettingsItem
-          className='p-3 rounded'
-          icon='information-circle'
-          label='About'
-        />
+        <SettingsItem className='p-3 rounded' icon='FiStare' label='About' />
       </ul>
     </div>
   );
@@ -33,7 +25,7 @@ const SettingsItem = ({ icon, label }) => (
       <Icon icon={icon} className='inline mr-2' style={{ width: '19px' }} />
       <Label text={label} semiBold />
     </div>
-    <ChevronRight style={{ width: '19px' }} />
+    <FiChevronRight size='19px' />
   </ListItem>
 );
 const ListItem = styled.div`

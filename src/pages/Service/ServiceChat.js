@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Button } from '../../Components/Button';
 import { OverflowCollapse } from '../../Components/layout/CollapseForm';
 import { TextInput } from '../../Components/TextInput';
+import toast from '../../Components/toast';
 import { Label } from '../../Components/Typography';
 import { AppContext } from '../../context/AppState';
 import ServiceMessage from '../../services/ServiceMessage';
@@ -20,9 +21,7 @@ export default function ServiceChat({ service, isOpen, setIsOpen }) {
       const service = new ServiceMessage();
       const { data } = await service.getServiceMessages(service_id);
       setMessages(data);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   }
   async function sendMessages(service_id, service_team) {
     try {
@@ -35,7 +34,11 @@ export default function ServiceChat({ service, isOpen, setIsOpen }) {
       setMessages(stMessages => [...stMessages, data]);
       setMessage('');
     } catch (error) {
-      console.log(error);
+      if (error?.response?.data[0]) {
+        error?.response?.data?.forEach(invalid => {
+          toast.error(invalid.message);
+        });
+      }
     }
   }
   return (

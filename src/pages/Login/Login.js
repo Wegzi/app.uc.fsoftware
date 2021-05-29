@@ -3,6 +3,7 @@ import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import { Button } from '../../Components/Button';
 import { TextInput } from '../../Components/TextInput';
+import toast from '../../Components/toast';
 import { Label } from '../../Components/Typography';
 import { AppContext } from '../../context/AppState';
 import User from '../../services/User';
@@ -22,14 +23,15 @@ export default function Login() {
     try {
       const service = new User();
       const { data } = await service.login(login.email, login.password);
-      console.log(data);
       appCtx.setUser(data);
       localStorage.setItem('user', JSON.stringify(data));
       history.push('/profile');
     } catch (error) {
-      console.log(error);
-      console.error(error?.response?.data?.errors);
-      console.error(error?.response?.data?.message);
+      if (error?.response?.data[0]) {
+        error?.response?.data?.forEach(invalid => {
+          toast.error(invalid.message);
+        });
+      }
     }
   }
 

@@ -8,3 +8,6 @@ export default function Purchase() {
 Purchase.prototype.purchase = function (owner_id, service_id) {
   return this.api.post('', { owner_id, service_id });
 };
+Purchase.prototype.getServingService = function (user_id) {
+  return this.api.get(`${user_id}/serving`);
+};

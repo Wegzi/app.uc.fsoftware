@@ -1,15 +1,16 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
-import * as Outline from '../assets/outline';
 import {
   FiArrowRight,
   FiCheck,
   FiChevronDown,
   FiCreditCard,
   FiEdit,
+  FiHeadphones,
   FiPlus,
   FiPower,
   FiSearch,
+  FiStar,
   FiUser,
   FiUserPlus,
   FiX,
@@ -35,7 +36,9 @@ const icons = {
   FiUserPlus: FiUserPlus,
   FiPower: FiPower,
   FiChevronDown: FiChevronDown,
-  FiEdit: FiEdit,
+  FiFiHeadphonesEdit: FiEdit,
+  FiHeadphones: FiHeadphones,
+  FiStar: FiStar,
   //
   AiFillStar: AiFillStar,
   AiOutlineStar: AiOutlineStar,
@@ -46,14 +49,6 @@ export function Icon({ icon, className, style, size }) {
     if (icons[_icon]) {
       return icons[_icon];
     }
-    const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1);
-    const iconName = _icon
-      .split('-')
-      .map(x => capitalize(x))
-      .join('');
-    const Component = Outline[iconName];
-    if (Component) return Component;
-    else return null;
   }
   const IconComponent = useMemo(() => renderIcon(icon), [icon]);
   return (

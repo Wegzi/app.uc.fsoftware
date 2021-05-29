@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { TextArea } from '../../Components/input/TextArea';
 import CollapseForm from '../../Components/layout/CollapseForm';
 import { TextInput } from '../../Components/TextInput';
+import toast from '../../Components/toast';
 import { Icon, Label } from '../../Components/Typography';
 import { AppContext } from '../../context/AppState';
 import PurchaseReport from '../../services/PurchaseReport';
@@ -32,13 +33,18 @@ export default function ReportForm({ onSave, purchase_id }) {
       }, 400);
       timeout();
       clearTimeout(timeout);
-    } catch (error) {}
+    } catch (error) {
+      if (error?.response?.data[0]) {
+        error?.response?.data?.forEach(invalid => {
+          toast.error(invalid.message);
+        });
+      }
+    }
   }
 
   function handleChange({ target: { name, value } }) {
     setReport(stService => ({ ...stService, [name]: value }));
   }
-  console.log(report);
   return (
     <CollapseForm isOpen={isOpen} setIsOpen={setIsOpen} onSubmit={handleSave}>
       <div className='flex items-center mb-3'>

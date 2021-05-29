@@ -5,6 +5,7 @@ import SelectInput, {
 import { TextArea } from '../../Components/input/TextArea';
 import CollapseForm from '../../Components/layout/CollapseForm';
 import { TextInput } from '../../Components/TextInput';
+import toast from '../../Components/toast';
 import { Icon, Label } from '../../Components/Typography';
 import { AppContext } from '../../context/AppState';
 import Service from '../../services/Service';
@@ -80,7 +81,13 @@ export default function ServiceForm({ onSave, service: propsService }) {
         timeout();
         clearTimeout(timeout);
       }
-    } catch (error) {}
+    } catch (error) {
+      if (error?.response?.data[0]) {
+        error?.response?.data?.forEach(invalid => {
+          toast.error(invalid.message);
+        });
+      }
+    }
   }
 
   function handleChange({ target: { name, value } }) {
