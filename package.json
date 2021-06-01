@@ -23,8 +23,7 @@
     "ws": "^7.4.5"
   },
   "scripts": {
-    "dev": "react-scripts start",
-    "start": "node serve.js",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
