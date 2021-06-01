@@ -22,10 +22,7 @@ const StyledLabel = styled.label`
   font-size: ${({ size }) => size || 1}em;
   font-weight: ${({ weight }) => weight || 500};
   opacity: ${({ opacity }) => opacity || 1};
-  color: ${({ type, theme }) => {
-    console.log(type);
-    return theme[type] || 'unset';
-  }};
+  color: ${({ type, theme }) => theme[type] || 'unset'};
 `;
 
 const icons = {

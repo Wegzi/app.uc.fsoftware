@@ -63,7 +63,6 @@ const Container = styled.div`
   transform: translateX(-50%);
   background: ${({ isOpen, theme }) =>
     isOpen ? theme.ultralight + 'f5' : 'transparent'};
-  opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
   transition: opacity 500ms;
   z-index: ${({ isOpen }) => (isOpen ? 999 : 0)};
 `;
