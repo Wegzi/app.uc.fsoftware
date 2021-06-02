@@ -5,14 +5,26 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 // import { Button } from '../Button';
 import Collapse from '../Collapse';
+import { Label } from '../Typography';
 // import { TextInput } from '../TextInput';
 import ProfileMenu from './ProfileMenu';
-
+import logo from '../../assets/images/logo.png';
 const MenuContainer = styled.div`
   max-height: 50vh;
   background-color: ${({ theme }) => theme.collapseMenu.background};
   width: 100vw;
   margin-bottom: 3px;
+`;
+const DesktopMenuItem = styled(Label)`
+  font-weight: 700;
+  cursor: pointer;
+  font-style: normal;
+  &:hover {
+    background-color: ${({ theme }) =>
+      Color(theme.ultralight).darken(0.05).hex()};
+    box-shadow: ${({ theme }) => theme.shadow};
+    color: ${({ theme }) => theme.text.dark};
+  }
 `;
 const MenuItem = styled.div`
   background-color: ${({ theme }) => theme.ultralight};
@@ -57,14 +69,16 @@ export function Header() {
 
   const options = [
     { title: 'Home', key: 'home', path: '/home' },
-    { title: 'Services', key: 'services', path: '/services' },
+    { title: 'Services', key: 'services', path: '/home' },
     { title: 'Help and Support', key: 'help_and_support', path: '/help' },
     { title: 'About', key: 'about', path: '/about' },
   ];
   return (
     <>
       <HeaderContainer>
-        <MenuToggler isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
+        <div className='sm:block md:hidden'>
+          <MenuToggler isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
+        </div>
         {/* <div className='flex px-4'>
           <TextInput
             value={search}
@@ -78,6 +92,10 @@ export function Header() {
             onClick={onSearch}
           />
         </div> */}
+        <div className='hidden md:flex flex-row items-center'>
+          <img src={logo} alt='' style={{ width: '70px', height: '70px' }} />
+          <DesktopMenu options={options} />
+        </div>
         <ProfileMenu />
         <CollapseMenu isOpen={isOpen} options={options} />
       </HeaderContainer>
@@ -85,6 +103,15 @@ export function Header() {
   );
 }
 
+const DesktopMenu = ({ options }) => (
+  <ul className='flex'>
+    {options.map(option => (
+      <Link key={option.key} to={option.path}>
+        <DesktopMenuItem className='px-3 rounded' bold text={option.title} />
+      </Link>
+    ))}
+  </ul>
+);
 const CollapseMenu = ({ isOpen, options }) => (
   <div
     className='absolute shadow-xl rounded-b-lg'
