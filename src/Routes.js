@@ -28,7 +28,9 @@ export default function Routes() {
             <Route exact path='/signup'>
               <Signup />
             </Route>
-            <Route exact path='/home' render={Home} />
+            <Route exact path='/home'>
+              <Home />
+            </Route>
             <Route exact path='/' render={Home} />
             <Route exact path='/profile'>
               <Profile />

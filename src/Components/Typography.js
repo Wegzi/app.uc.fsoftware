@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import {
+  FiArrowLeft,
   FiArrowRight,
   FiCheck,
   FiChevronDown,
@@ -40,6 +41,7 @@ const icons = {
   FiUserPlus: FiUserPlus,
   FiX: FiX,
   FiZap: FiZap,
+  FiArrowLeft: FiArrowLeft,
   //
   AiFillStar: AiFillStar,
   AiOutlineStar: AiOutlineStar,
@@ -57,7 +59,16 @@ export function Icon({ icon, className, style, size }) {
     <IconComponent className={className} style={style} size={size || 20} />
   );
 }
-export function Label({ type, text, className, size, bold, semiBold, muted }) {
+export function Label({
+  type,
+  text,
+  className,
+  size,
+  bold,
+  semiBold,
+  muted,
+  style,
+}) {
   return (
     <StyledLabel
       type={type}
@@ -65,6 +76,7 @@ export function Label({ type, text, className, size, bold, semiBold, muted }) {
       size={size}
       weight={bold ? 700 : semiBold ? 600 : null}
       opacity={muted ? 0.7 : 1}
+      style={style}
     >
       {text}
     </StyledLabel>

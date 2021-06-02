@@ -6,7 +6,7 @@ import { AppContext } from '../../context/AppState';
 import Service from '../../services/Service';
 import ServiceForm from './ServiceForm';
 
-export default function Search() {
+export default function Services() {
   const location = useLocation();
   const query = new URLSearchParams(location.search).get('q') ?? '';
   const [services, setServices] = useState([]);
@@ -33,7 +33,7 @@ export default function Search() {
     setServices(stService => [...stService, newService]);
   }
   return (
-    <div className='p-3 container mx-auto'>
+    <div className=' '>
       {query ? <Label text={`Buscando por: ${query}`} /> : null}
       <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
         {filteredServices.map(service => (
@@ -48,11 +48,11 @@ export default function Search() {
               </div>
               <div className='mt-3 flex justify-between italic'>
                 <div>
-                  <Label text={`${service.value} R$`} bold />
+                  <Label text={`R$ ${service.value.toLocaleString()}`} bold />
                 </div>
                 <div className='flex'>
                   <Label className='mr-4' text={service.user_name} bold />
-                  {service.created_at.toLocaleString()}
+                  {new Date(service.created_at).toLocaleDateString()}
                 </div>
               </div>
             </ServiceContainer>

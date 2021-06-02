@@ -1,22 +1,61 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { Label } from '../../Components/Typography';
-
+import gradientLight from '../../assets/images/mesh-gradient-light.png';
+import gradientDark from '../../assets/images/mesh-gradient-dark.png';
+import { ThemeContext } from '../../context/ThemeState';
+import { TextInput } from '../../Components/TextInput';
+import { Button } from '../../Components/Button';
+import { useHistory } from 'react-router';
+import Services from '../Service/Services';
 export default function Home() {
+  const [search, setSearch] = useState('');
+
+  const { isDark } = useContext(ThemeContext);
+  const history = useHistory();
+
+  function onSearch() {
+    history.push(`?q=${search}`);
+  }
   return (
-    <div className='p-3'>
-      <div>
-        <Label className='text-center' text='[Nome do site]' size='3.5' />
-      </div>
-      <div className='grid grid-cols-3 gap-4'>
-        <Card />
-        <Card />
-        <Card />
+    <div className='h-full'>
+      <div className='p-3 container mx-auto'>
+        <SearchContainer className='rounded-xl mb-5 p-3' isDark={isDark}>
+          <Label
+            className='text-center'
+            text='USJT IT Services'
+            size='2'
+            bold
+            style={{ color: '#fff' }}
+          />
+          <div className='md:w-1/2 w-full mx-auto flex'>
+            <TextInput
+              value={search}
+              onChange={ev => setSearch(ev.target.value)}
+              placeholder='Buscar'
+            />
+            <Button
+              icon='FiSearch'
+              type='input'
+              className='ml-1'
+              onClick={onSearch}
+            />
+          </div>
+        </SearchContainer>
+        <Services />
       </div>
     </div>
   );
 }
-
+const SearchContainer = styled.div`
+  background-image: ${({ isDark }) =>
+    isDark ? `url(${gradientDark})` : `url(${gradientLight})`};
+  background-size: cover;
+  background-position: center;
+  /* label {
+    font-size: 1rem;
+  } */
+`;
 function Card() {
   return (
     <CardService className='rounded-lg p-3'>

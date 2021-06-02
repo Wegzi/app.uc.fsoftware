@@ -1,11 +1,11 @@
 import Color from 'color';
 import React, { useState } from 'react';
 import { FiMenu, FiX } from 'react-icons/fi';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { Button } from '../Button';
+// import { Button } from '../Button';
 import Collapse from '../Collapse';
-import { TextInput } from '../TextInput';
+// import { TextInput } from '../TextInput';
 import ProfileMenu from './ProfileMenu';
 
 const MenuContainer = styled.div`
@@ -48,12 +48,12 @@ const HeaderContainer = styled.div`
 `;
 
 export function Header() {
-  const [search, setSearch] = useState('');
+  // const [search, setSearch] = useState('');
   const [isOpen, setIsOpen] = useState(false);
-  const history = useHistory();
-  function onSearch() {
-    history.push(`/services?q=${search}`);
-  }
+  // const history = useHistory();
+  // function onSearch() {
+  //   history.push(`/services?q=${search}`);
+  // }
 
   const options = [
     { title: 'Home', key: 'home', path: '/home' },
@@ -65,7 +65,7 @@ export function Header() {
     <>
       <HeaderContainer>
         <MenuToggler isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
-        <div className='flex px-4'>
+        {/* <div className='flex px-4'>
           <TextInput
             value={search}
             onChange={ev => setSearch(ev.target.value)}
@@ -77,7 +77,7 @@ export function Header() {
             className='ml-1'
             onClick={onSearch}
           />
-        </div>
+        </div> */}
         <ProfileMenu />
         <CollapseMenu isOpen={isOpen} options={options} />
       </HeaderContainer>

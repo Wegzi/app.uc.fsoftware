@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 import styled from 'styled-components';
 import { Button } from '../../Components/Button';
-import { Label } from '../../Components/Typography';
+import { Icon, Label } from '../../Components/Typography';
 import { AppContext } from '../../context/AppState';
 import ServiceService from '../../services/Service';
 import ServiceChat from './ServiceChat';
@@ -16,9 +16,8 @@ export default function Service() {
   const { rules } = useContext(AppContext);
   const history = useHistory();
   const params = useParams();
-
   useEffect(() => {
-    findService(params.service_id);
+    if (params.service_id) findService(params.service_id);
   }, [params.service_id]);
 
   async function findService(serviceId) {
@@ -42,7 +41,14 @@ export default function Service() {
   return (
     <div className='container p-3 mx-auto'>
       <Card className='mx-auto rounded-xl shadow-2xl'>
-        <CardImage className='flex'>
+        <CardImage className='flex flex-col'>
+          <div onClick={() => history.push('/home')}>
+            <BackIcon
+              className='mt-3 ml-3 rounded-full'
+              icon='FiArrowLeft'
+              size='30'
+            />
+          </div>
           <div className='mt-auto p-2 flex flex-wrap'>
             {service.tags?.map((tag, i) => (
               <Badge className='mr-2' key={i} text={tag} bold />
@@ -55,7 +61,7 @@ export default function Service() {
           <div className='flex my-5 items-center'>
             <Label
               type='success'
-              text={`R$ ${service.value ?? '-'}`}
+              text={`R$ ${service.value?.toLocaleString() ?? '-'}`}
               bold
               size='2'
               className='mr-3'
@@ -98,6 +104,11 @@ export default function Service() {
   );
 }
 
+const BackIcon = styled(Icon)`
+  cursor: pointer;
+  background-color: #ffffff;
+  color: #555;
+`;
 const CardImage = styled.div`
   height: 200px;
   width: 100%;
